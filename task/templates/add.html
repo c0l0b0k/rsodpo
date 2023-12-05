@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE>
+
+<html></html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'task/css/style.css' %}">
+    <link rel="stylesheet" type="text/css"  href="{% static 'task/css/hystmodal.min.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'task/js/send_to_neuro.js' %}"></script>
+
+
+</head>
+
+
+<title></title>
+
+<body>
+<div class="wrapper">
+
+        <form class="main" action="" method="post">
+            {% csrf_token %}
+    <div id="enter">
+        <a href="#" data-hystmodal="#newTopic"><img src="/static/admin/img/icon-addlink.svg" alt="Добавить"></a>
+        <p><label for ="{{ form.topic.id_for_label}}">{{ form.topic.label}}</label> {{ form.topic}}</p>
+        <p><label for ="{{ form.task.id_for_label}}">{{ form.task.label}}</label> {{ form.task}}</p>
+        <p>на случай если задание уже существует (необходимо выбрать тему)</p>
+        <p><label for ="{{ form.choose_task.id_for_label}}">{{ form.choose_task.label}}</label> {{ form.choose_task}}</p>
+
+        <p><label for ="{{ form.difficulty.id_for_label}}">{{ form.difficulty.label}}</label> {{ form.difficulty}}</p>
+
+
+
+        <p><label for ="{{ form.model.id_for_label}}">{{ form.model.label}}</label> {{ form.model}}</p>
+        <p><label for ="{{ form.program_code.id_for_label}}">{{ form.program_code.label}}</label> {{ form.program_code}}</p>
+
+
+        <p><button type="button" id="sent_neuro">{% csrf_token %}Отправить запрос</button></p>
+        <p><button type="button" id="add_request">{% csrf_token %}Отправить запрос на выполнение</button></p>
+        <p><button type="button" id="start_fon_task">{% csrf_token %}Запустить фоновое выполнение</button></p>
+
+        <p>Отвен Нс</p>
+        <textarea class="answer_nuero" id="neuro_answer"></textarea>
+
+
+    </div>
+    <div id="panel">
+<!--         <button type="submit"   id="send_db">Записать в бд</button>-->
+    </div>
+    <div id ="output">
+        <a href="{% url 'fill_storage' %}">Перейти к заполнению</a>
+<!--        <p><label for ="{{ form.errors_neural.id_for_label}}">{{ form.errors_neural.label}}</label> {{ form.errors_neural}}</p>-->
+<!--        <p><label for ="{{ form.recommend_text_neural.id_for_label}}">{{ form.recommend_text_neural.label}}</label> {{ form.recommend_text_neural}}</p>-->
+<!--        <p><label for ="{{ form.ideal_text_neural.id_for_label}}">{{ form.ideal_text_neural.label}}</label> {{ form.ideal_text_neural}}</p>-->
+
+    </div>
+        </form>
+
+</div>
+<div class="hystmodal" id="newTopic" aria-hidden="true">
+    <div class="hystmodal__wrap">
+        <div class="hystmodal__window" role="dialog" aria-modal="true">
+            <button data-hystclose class="hystmodal__close">Закрыть</button>
+                <p><label for ="{{ form.new_topic.id_for_label}}">{{ form.new_topic.label}}</label> {{ form.new_topic}}</p>
+               <p><label for ="{{ form.sub_topic.id_for_label}}">{{ form.sub_topic.label}}</label> {{ form.sub_topic}}</p>
+                 <p><label for ="{{ form.system_role_text.id_for_label}}">{{ form.system_role_text.label}}</label> {{ form.system_role_text}}</p>
+                 <button type="button"   id="new_topic">Добавить</button>
+        </div>
+    </div>
+</div>
+<script src="{% static 'task/js/hystmodal.min.js' %}"></script>
+<script src="{% static 'task/js/upload_filds.js' %}"></script>
+</body>

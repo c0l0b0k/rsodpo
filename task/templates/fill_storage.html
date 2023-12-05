@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'task/css/style.css' %}">
+
+</head>
+<body>
+ <form class="main" action="" method="post">
+            {% csrf_token %}
+    <div id="enter">
+        <p>Задание</p>
+        <p><div>{{task}}</div></p>
+        <p>Решение</p>
+        <p><textarea>{{solution}}</textarea></p>
+        <p>Тема</p>
+        <p><div>{{topic}}</div></p>
+        <p>Модель</p>
+        <p><div>{{model}}</div></p>
+        <p>Промт</p>
+        <p><textarea>{{promt}}</textarea></p>
+        <p>Ответ нс</p>
+        <p><textarea class="answer_nuero">{{neural_answer}}</textarea></p>
+
+
+    </div>
+    <div id="panel">
+         <button type="submit"   id="send_db">Записать в бд</button>
+    </div>
+    <div id ="output">
+        {% for field in form %}
+         {% if forloop.first %}
+                {# Скрываем первый элемент и устанавливаем значение #}
+                <input type="hidden" name="{{ field.name }}" value="{{reqest_storage}}">
+            {% else %}
+        <div>
+
+            {{ field.label_tag }}: {{ field }}
+
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    </div>
+        </form>
+</body>
+</html>
