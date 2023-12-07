@@ -19,13 +19,14 @@
 <body>
 <div class="wrapper">
 
-        <form class="main" action="" method="post">
+        <form class="main" action="" enctype="multipart/form-data" method="post">
             {% csrf_token %}
     <div id="enter">
         <a href="#" data-hystmodal="#newTopic"><img src="/static/admin/img/icon-addlink.svg" alt="Добавить"></a>
         <p><label for ="{{ form.topic.id_for_label}}">{{ form.topic.label}}</label> {{ form.topic}}</p>
-        <p><label for ="{{ form.task.id_for_label}}">{{ form.task.label}}</label> {{ form.task}}</p>
+        <p><label for ="{{ form.task.id_for_label}}">{{form.media}}{{ form.task.label}}</label> {{ form.task}}</p>
         <p>на случай если задание уже существует (необходимо выбрать тему)</p>
+
         <p><label for ="{{ form.choose_task.id_for_label}}">{{ form.choose_task.label}}</label> {{ form.choose_task}}</p>
 
         <p><label for ="{{ form.difficulty.id_for_label}}">{{ form.difficulty.label}}</label> {{ form.difficulty}}</p>

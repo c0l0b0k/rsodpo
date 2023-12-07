@@ -1,7 +1,8 @@
 $(document).ready(function() {
   $('#sent_neuro').click(function() {
     // Получение данных для отправки
-    var task = document.getElementById('id_task').value
+    var editor = CKEDITOR.instances.id_task;
+    var task = editor.getData();
     var solution = document.getElementById('id_program_code').value
 
 
@@ -44,15 +45,14 @@ $(document).ready(function() {
   $('#add_request').click(function() {
     // Получение данных для отправки
 
-    var task = document.getElementById('id_task').value
+//    var task = document.getElementById('id_task').value
+    var editor = CKEDITOR.instances.id_task;
+    var task = editor.getData();
     var task_id=document.getElementById('id_choose_task').value
     var difficulty= document.getElementById('id_difficulty').value
     var solution =document.getElementById('id_program_code').value
     var topic=document.getElementById('id_topic')
     topic = topic.value
-
-
-
 
     var data = {
       difficulty:difficulty,
@@ -61,13 +61,14 @@ $(document).ready(function() {
       task:task,
       solution:solution
     };
-
     // Отправка ajax запроса
     $.ajax({
       type: 'POST',
       url: '/add_request/', // URL для обработки запроса в Django
       data: data,
       success: function(response) {
+        editor.setData('');
+        document.getElementById('id_topic').value="";
           var temp1=document.getElementById('id_task').value="";
         var temp1=document.getElementById('id_program_code').value=""
          var temp1=document.getElementById('id_difficulty').value=""

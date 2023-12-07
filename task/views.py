@@ -1,3 +1,5 @@
+
+
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404
@@ -14,6 +16,11 @@ from task.task import*
 from django_rq import enqueue
 import time, schedule
 from django_rq import job
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import re
+import os
+import requests
 
 @job('default', timeout=600)
 def run_repeating_task():
@@ -64,7 +71,6 @@ def fill_storage(request):
         rate.kr8 = data["kr8"]
         rate.kr9 = data["kr9"]
         rate.kr10 = data["kr10"]
-        rate.errors_text=data["errors_neural"]
         rate.recommend_text=data["recommend_text_neural"]
         rate.ideal_text=data["ideal_text_neural"]
         rate.save()
@@ -115,7 +121,7 @@ def sent_neuro(request):
 
         system_role = Topic.objects.get(pk=data["topic"]).system_text
         print(system_role)
-        content=data["task"] +"\n"+data["solution"]
+        content=get_clean_text(data["task"]) +"\n"+data["solution"]
         response = g4f.ChatCompletion.create(
             model= getattr(g4f.models, data["model"]),
             messages=[{"role": "system", "content":system_role}, {"role": "user",
@@ -159,10 +165,21 @@ def get_tasks_for_topic(request, topic_id):
 @csrf_exempt
 def add_request(request):
     data = request.POST
-    print("jjjjjjjjjjj")
-    print(data)
+    task = data['task']
+    saved_image_paths = process_and_save_images(task)
+
+    # Замена src на путь до изображения в тексте
+    for saved_image_path in saved_image_paths:
+        relative_image_path = default_storage.url(saved_image_path)+"\" />"
+        pattern = re.compile(r'data:image.*?/>')
+        # Замена в тексте
+        task = re.sub(pattern, relative_image_path, task)
+
+
+
+
     if data["task_id"]=="":
-        t=Task.objects.create(formulation=data['task'], topic=Topic.objects.get(pk=data['topic']),difficulty=data['difficulty'])
+        t=Task.objects.create(formulation=task, topic=Topic.objects.get(pk=data['topic']),difficulty=data['difficulty'])
     else:
         t=Task.objects.get(pk=data['task_id'])
 
@@ -196,3 +213,7 @@ class login_user(LoginView):
             return reverse_lazy('home_student')
         elif user_group.name=='Teachers':
             return reverse_lazy('home_teachers')
+
+
+
+

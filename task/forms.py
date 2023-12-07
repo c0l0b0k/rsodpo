@@ -1,8 +1,9 @@
 from django import  forms
 from .models import *
+from ckeditor.widgets import CKEditorWidget
 
 class AddPostForm(forms.Form):
-    task = forms.CharField(widget=forms.Textarea(),label="Задание")
+    task = forms.CharField(widget=CKEditorWidget(),label="Задание")
     choose_task=forms.ModelChoiceField(queryset=Task.objects.all(),label="Сушестующее задание")
     difficulty =forms.IntegerField( required=True,label="Сложность")
 
@@ -16,7 +17,7 @@ class AddPostForm(forms.Form):
 
     model=forms.ModelChoiceField(required=True, queryset=  NeuralNetwork.objects.all(),label="Нс")
 
-    errors_neural = forms.CharField(widget=forms.Textarea(), label="Ошибки от нейроной сети")
+
     recommend_text_neural = forms.CharField(widget=forms.Textarea(), label="Рекомендация нс")
     ideal_text_neural = forms.CharField(widget=forms.Textarea(), label="Эталонное решение")
 
@@ -32,7 +33,7 @@ class FillFromStorageForm(forms.Form):
     kr8 = forms.IntegerField(label="Крритерий 8")
     kr9 = forms.IntegerField(label="Крритерий 8")
     kr10 = forms.IntegerField(label="Крритерий 9")
-    errors_neural = forms.CharField(widget=forms.Textarea(), label="Ошибки от нейроной сети")
+
     recommend_text_neural = forms.CharField(widget=forms.Textarea(), label="Рекомендация нс")
     ideal_text_neural = forms.CharField(widget=forms.Textarea(), label="Эталонное решение")
 

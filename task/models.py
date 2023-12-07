@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -189,7 +190,7 @@ class Solution(models.Model):
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
-    formulation = models.CharField()
+    formulation =  RichTextField()
     key_words= models.CharField(blank=True, null=True)
     difficulty=models.IntegerField(blank=True, null=True)
     topic = models.ForeignKey('Topic', models.DO_NOTHING, blank=True, null=False)

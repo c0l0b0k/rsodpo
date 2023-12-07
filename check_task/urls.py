@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path
+from django.conf.urls.static import static
 
+from check_task import settings
 from student.views import *
 from task.views import *
 from django.urls import include, path
@@ -43,6 +45,6 @@ urlpatterns = [
     path('home_student/',home_student,name='home_student'),
     path('home_student/task_view/<int:number>/', task_view, name='task_view'),
 
-
-
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

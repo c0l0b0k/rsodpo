@@ -12,13 +12,11 @@
      display: flex;
      Justify-content:space-around;
 }
-.main div{
-     border: 1px solid green;
-}
+
 .main div div{
-    contenteditable:true;
-    border: 1px solid blue;
-    margin:10px 20px;
+
+
+/*    margin:10px 20px;*/
 }
 .main textarea{
     border: 1px solid deeppink;
@@ -46,4 +44,7 @@ button:active
 .answer_nuero{
     width:830px !important;
     height:430px !important;
+}
+#enter div{
+    border: 1px solid green;
 }

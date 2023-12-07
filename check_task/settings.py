@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'task.apps.TaskConfig',
     'django_rq',
+    'ckeditor',
+    'ckeditor_uploader',
+
+
 ]
 
 MIDDLEWARE = [
@@ -82,10 +86,10 @@ WSGI_APPLICATION = 'check_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rsodpo_solution1',
+        'NAME': 'rso1',
         'USER': 'postgres',
         'PASSWORD': '0268',
-        'HOST': '26.98.110.227',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -126,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -154,3 +160,5 @@ LOGGING = {
 }
 AUTH_USER_MODEL = 'task.User'
 LOGOUT_REDIRECT_URL='login_user'
+CKEDITOR_UPLOAD_PATH = "img_in_tasks/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'

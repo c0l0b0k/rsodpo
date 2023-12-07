@@ -12,7 +12,7 @@
             {% csrf_token %}
     <div id="enter">
         <p>Задание</p>
-        <p><div>{{task}}</div></p>
+        <p><div>{{task |safe}}</div></p>
         <p>Решение</p>
         <p><textarea>{{solution}}</textarea></p>
         <p>Тема</p>

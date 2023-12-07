@@ -1,7 +1,7 @@
 from rq import get_current_job
 from time import sleep
 from .models import *
-
+from .util import *
 import g4f
 
 
@@ -12,7 +12,7 @@ def long_running_task():
     make_requests = StorageRequests.objects.filter(is_done=False)
 
     for item in make_requests:
-        #content = make_template(QueryTemplate.objects.get(pk= NeuralStats.objects.get(pk=item.neural_config).query_template), Task.objects.get(pk=item.task), Solution.objects.get(pk=item.solution),Topic.objects.get(pk= NeuralStats.objects.get(pk=item.neural_config).topic))
+
         rate=item.rate
         model=rate.neural.neural_name
         solution = rate.solution
@@ -20,7 +20,7 @@ def long_running_task():
         system_text=task.topic.system_text
 
 
-        content ="Дано задание"+"\n"+ task.formulation+"\n"+"Дано решение"+"\n"+solution. program_code
+        content ="Дано задание"+"\n"+ get_clean_text(task.formulation)+"\n"+"Дано решение"+"\n"+solution. program_code
         print("--------")
         print(model)
 
