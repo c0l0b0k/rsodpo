@@ -191,6 +191,7 @@ class Solution(models.Model):
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     formulation =  RichTextField()
+    max_mark=models.CharField(blank=True, null=True)
     key_words= models.CharField(blank=True, null=True)
     difficulty=models.IntegerField(blank=True, null=True)
     topic = models.ForeignKey('Topic', models.DO_NOTHING, blank=True, null=False)
