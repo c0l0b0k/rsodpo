@@ -21,16 +21,17 @@ def long_running_task():
 
 
         content ="Дано задание"+"\n"+ get_clean_text(task.formulation)+"\n"+"Дано решение"+"\n"+solution. program_code
+        print(content)
         print("--------")
         print(model)
         try:
             # Ваш код, который может вызвать исключение
             model_ = getattr(g4f.models, model)
         except  :
-            pass
+            model_=model
         try:
             response = g4f.ChatCompletion.create(
-                model=getattr(g4f.models, model),
+                model=model_,
                 messages=[{"role": "system", "content": system_text}, {"role": "user",
                                                                                "content": content}],
             )

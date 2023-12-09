@@ -172,7 +172,7 @@ def add_request(request):
 
     s=Solution.objects.create(program_code=data['solution'],task=t)
 
-    r1 = Rate.objects.create(solution=s, neural=NeuralNetwork.objects.get(neural_name="claude_v1"))
+    r1 = Rate.objects.create(solution=s, neural=NeuralNetwork.objects.get(neural_name="gpt-3.5-turbo-16k"))
     r2=Rate.objects.create(solution=s,neural=NeuralNetwork.objects.get(neural_name="gpt_4"))
     r3=Rate.objects.create(solution=s,neural=NeuralNetwork.objects.get(neural_name="gpt_35_turbo"))
     StorageRequests.objects.create(is_done=False,rate=r1)
