@@ -23,6 +23,7 @@ from check_task import settings
 from student.views import *
 from task.views import *
 from django.urls import include, path
+from teacher.views import *
 
 
 urlpatterns = [
@@ -35,15 +36,19 @@ urlpatterns = [
     path('sent_neuro/', sent_neuro, name='sent_neuro'),
 
     path('new_topic/',new_topic, name= 'new_topic/'),
-    # path('new_neuro/',new_neuro, name= 'new_neuro/'),
+
 
     path('get_tasks_for_topic/<int:topic_id>/', get_tasks_for_topic, name='get_tasks_for_topic'),
 
     path('add_request/',add_request, name= 'add_request/'),
     path('start_fon_task/',start_fon_task, name= 'start_fon_task/'),
 
+    # для student
     path('home_student/',home_student,name='home_student'),
     path('home_student/task_view/<int:number>/', task_view, name='task_view'),
+
+    # для teacher
+    path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),
 
 ]
 if settings.DEBUG:

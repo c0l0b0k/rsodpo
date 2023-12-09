@@ -23,18 +23,30 @@ class AddPostForm(forms.Form):
 
 class FillFromStorageForm(forms.Form):
     reqest_storage=forms.IntegerField( label="rate")
-    kr1 = forms.IntegerField(label="Крритерий 1")
-    kr2 = forms.IntegerField(label="Крритерий 2")
-    kr3 = forms.IntegerField(label="Крритерий 3")
-    kr4 = forms.IntegerField(label="Крритерий 4")
-    kr5 = forms.IntegerField(label="Крритерий 5")
-    kr6 = forms.IntegerField(label="Крритерий 6")
-    kr7 = forms.IntegerField(label="Крритерий 7")
-    kr8 = forms.IntegerField(label="Крритерий 8")
-    kr9 = forms.IntegerField(label="Крритерий 8")
-    kr10 = forms.IntegerField(label="Крритерий 9")
+    kr1 = forms.IntegerField(required=False,label="Крритерий 1")
+    kr2 = forms.IntegerField(required=False,label="Крритерий 2")
+    kr3 = forms.IntegerField(required=False,label="Крритерий 3")
+    kr4 = forms.IntegerField(required=False,label="Крритерий 4")
+    kr5 = forms.IntegerField(required=False,label="Крритерий 5")
+    kr6 = forms.IntegerField(required=False,label="Крритерий 6")
+    kr7 = forms.IntegerField(required=False,label="Крритерий 7")
+    kr8 = forms.IntegerField(required=False,label="Крритерий 8")
+    kr9 = forms.IntegerField(required=False,label="Крритерий 9")
+    kr10 = forms.IntegerField(required=False,label="Крритерий 10")
 
-    recommend_text_neural = forms.CharField(widget=forms.Textarea(), label="Рекомендация нс")
-    ideal_text_neural = forms.CharField(widget=forms.Textarea(), label="Эталонное решение")
+    recommend_text_neural = forms.CharField(required=False,widget=forms.Textarea(), label="Рекомендация нс")
+    ideal_text_neural = forms.CharField(required=False,widget=forms.Textarea(), label="Эталонное решение")
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        for field_name in self.fields:
+            if field_name != 'reqest_storage':
+                field_value = cleaned_data.get(field_name)
+                if field_value is None:
+                    cleaned_data[field_name] = None
+        self.cleaned_data = cleaned_data
+
+        return cleaned_data
 
 

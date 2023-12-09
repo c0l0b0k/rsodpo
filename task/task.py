@@ -23,14 +23,16 @@ def long_running_task():
         content ="Дано задание"+"\n"+ get_clean_text(task.formulation)+"\n"+"Дано решение"+"\n"+solution. program_code
         print("--------")
         print(model)
-
+        try:
+            # Ваш код, который может вызвать исключение
+            model_ = getattr(g4f.models, model)
+        except  :
+            pass
         try:
             response = g4f.ChatCompletion.create(
                 model=getattr(g4f.models, model),
                 messages=[{"role": "system", "content": system_text}, {"role": "user",
                                                                                "content": content}],
-                provider=g4f.Provider.GptForLove
-
             )
             item.neural_answer=response
             item.is_done=True

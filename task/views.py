@@ -31,18 +31,7 @@ def run_repeating_task():
 
 
 def add(request):
-    # Вроде как этот код не нужен
-    # if request.method =='POST':
-    #
-    #     form = AddPostForm(request.POST)
-    #
-    #     t1=Task.objects.create(formulation=form.data['task'],topic=Topic.objects.get(pk=form.data['topic']))
-    #     s1=Solution.objects.create(program_code=form.data['program_code'],recommend_text=form.data['recommend_text'],errors_text = form.data['errors'],task=t1)
-    #     r1=Rate.objects.create(errors_rate=form.data['errors_rate'],recommend_rate=form.data['recommend_rate'],ideal_rate=form.data['ideal_rate'],recommend_text=form.data['recommend_text_neural'], ideal_text=form.data['ideal_text_neural'],solution=s1,neural=NeuralNetwork.objects.get(pk =form.data['neural_network']))
-    #
-    #
-    # else:
-    #     form =  AddPostForm()
+
     form = AddPostForm()
     data={
         'form':form
@@ -55,26 +44,26 @@ def fill_storage(request):
     # Передайте объекты в контекст шаблона
     if request.method =='POST':
         form = FillFromStorageForm(request.POST)
+        form.is_valid()
         print("llllllllllllllllllllllll")
 
-        data=(form.data)
-        print(data)
-        request_=StorageRequests.objects.get(pk=data['reqest_storage'])
+
+        request_=StorageRequests.objects.get(pk=form.cleaned_data['reqest_storage'])
         rate=Rate.objects.get(pk=request_.rate_id)
-        rate.kr1 =data["kr1"]
-        rate.kr2 = data["kr2"]
-        rate.kr3 = data["kr3"]
-        rate.kr4 = data["kr4"]
-        rate.kr5 = data["kr5"]
-        rate.kr6 = data["kr6"]
-        rate.kr7 = data["kr7"]
-        rate.kr8 = data["kr8"]
-        rate.kr9 = data["kr9"]
-        rate.kr10 = data["kr10"]
-        rate.recommend_text=data["recommend_text_neural"]
-        rate.ideal_text=data["ideal_text_neural"]
+        rate.kr1 =form.cleaned_data["kr1"]
+        rate.kr2 = form.cleaned_data["kr2"]
+        rate.kr3 = form.cleaned_data["kr3"]
+        rate.kr4 = form.cleaned_data["kr4"]
+        rate.kr5 = form.cleaned_data["kr5"]
+        rate.kr6 = form.cleaned_data["kr6"]
+        rate.kr7 = form.cleaned_data["kr7"]
+        rate.kr8 = form.cleaned_data["kr8"]
+        rate.kr9 = form.cleaned_data["kr9"]
+        rate.kr10 = form.cleaned_data["kr10"]
+        rate.recommend_text=form.cleaned_data["recommend_text_neural"]
+        rate.ideal_text=form.cleaned_data["ideal_text_neural"]
         rate.save()
-        record_to_delete = StorageRequests.objects.get(pk=data["reqest_storage"])
+        record_to_delete = StorageRequests.objects.get(pk=form.cleaned_data["reqest_storage"])
         record_to_delete.delete()
 
     else:
@@ -122,11 +111,16 @@ def sent_neuro(request):
         system_role = Topic.objects.get(pk=data["topic"]).system_text
         print(system_role)
         content=get_clean_text(data["task"]) +"\n"+data["solution"]
+        try:
+            # Ваш код, который может вызвать исключение
+            model = getattr(g4f.models, data["model"])
+        except  :
+            model=data["model"]
         response = g4f.ChatCompletion.create(
-            model= getattr(g4f.models, data["model"]),
+            model= model,
             messages=[{"role": "system", "content":system_role}, {"role": "user",
                                                                            "content": content}],
-            provider=g4f.Provider.GptForLove
+
         )
         print(content)
         print(response)
@@ -152,14 +146,7 @@ def get_tasks_for_topic(request, topic_id):
     task_list = [{'id': task.task_id, 'name': str(task)} for task in tasks]
     return JsonResponse({'tasks': task_list})
 
-#Вроде можно удалить
-# @csrf_exempt
-# def new_neuro(request):
-#     data = request.POST
-#     print(data)
-#     n = NeuralNetwork.objects.create(neural_name=data["new_neuro"])
-#
-#     return JsonResponse({'message': 'Success', 'value': n.neural_id, 'neuro_name': n.neural_name})
+
 
 
 @csrf_exempt
