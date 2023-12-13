@@ -38,7 +38,7 @@ urlpatterns = [
     path('new_topic/',new_topic, name= 'new_topic/'),
 
 
-    path('get_tasks_for_topic/<int:topic_id>/', get_tasks_for_topic, name='get_tasks_for_topic'),
+    path('get_subsection_for_topic/<int:topic_id>/', get_subsection_for_topic, name='get_subsection_for_topic'),
 
     path('add_request/',add_request, name= 'add_request/'),
     path('start_fon_task/',start_fon_task, name= 'start_fon_task/'),
