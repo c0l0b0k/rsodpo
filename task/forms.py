@@ -4,12 +4,13 @@ from ckeditor.widgets import CKEditorWidget
 
 class AddPostForm(forms.Form):
     task = forms.CharField(widget=CKEditorWidget(),label="Задание")
-    choose_task=forms.ModelChoiceField(queryset=Task.objects.all(),label="Сушестующее задание")
-    difficulty =forms.IntegerField( required=True,label="Сложность")
+    choose_task=forms.ModelChoiceField(queryset=Task.objects.none(),label="Сушестующее задание")
+    subsection=forms.ModelChoiceField(required=True, queryset= Topic.objects.none()  ,label="Порядковый номер задания")
+
 
     program_code = forms.CharField(widget=forms.Textarea(), label="Решение студента")
 
-    topic = forms.ModelChoiceField(required=True, queryset=  Topic.objects.all(),label="Тема")
+    topic = forms.ModelChoiceField(required=True, queryset=   Topic.objects.filter(subsection=None),label="Тема")
     new_topic = forms.CharField( required=True,label="Тема")
     sub_topic = forms.ModelChoiceField(required=False,empty_label="", queryset=Topic.objects.all(), label="Раздел")
     system_role_text=forms.CharField(required=False,widget=forms.Textarea(), label="Технические инстр. нс")
