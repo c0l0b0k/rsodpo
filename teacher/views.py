@@ -16,7 +16,8 @@ def pivot_table_teacher(request):
     data = {
         'user': request.user,
         'form': form,
-        'topics':topics
+        'topics':topics,
+        'alphabet': 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ'
     }
 
     return render(request, 'pivottable.html', data)

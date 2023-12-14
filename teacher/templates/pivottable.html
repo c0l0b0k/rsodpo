@@ -62,6 +62,7 @@
                 </ul>
             </div>
             <div class="container" style="padding: 16px;">
+                <form method="post" action="{% pivot_table_teacher %}">
                 <h2>Ответы на задание</h2>
                 <div style="font-size: 0.9rem;">
                     <div style="justify-content: space-between; margin-bottom: 20px;">
@@ -82,76 +83,24 @@
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Имя
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary">Все</button>
-                            <button type="button" class="btn btn-outline-primary">А</button>
-                            <button type="button" class="btn btn-outline-primary">Б</button>
-                            <button type="button" class="btn btn-outline-primary">В</button>
-                            <button type="button" class="btn btn-outline-primary">Г</button>
-                            <button type="button" class="btn btn-outline-primary">Д</button>
-                            <button type="button" class="btn btn-outline-primary">Е</button>
-                            <button type="button" class="btn btn-outline-primary">Ж</button>
-                            <button type="button" class="btn btn-outline-primary">З</button>
-                            <button type="button" class="btn btn-outline-primary">И</button>
-                            <button type="button" class="btn btn-outline-primary">К</button>
-                            <button type="button" class="btn btn-outline-primary">Л</button>
-                            <button type="button" class="btn btn-outline-primary">М</button>
-                            <button type="button" class="btn btn-outline-primary">Н</button>
-                            <button type="button" class="btn btn-outline-primary">О</button>
-                            <button type="button" class="btn btn-outline-primary">П</button>
-                            <button type="button" class="btn btn-outline-primary">Р</button>
-                            <button type="button" class="btn btn-outline-primary">С</button>
-                            <button type="button" class="btn btn-outline-primary">Т</button>
-                            <button type="button" class="btn btn-outline-primary">У</button>
-                            <button type="button" class="btn btn-outline-primary">Ф</button>
-                            <button type="button" class="btn btn-outline-primary">Х</button>
-                            <button type="button" class="btn btn-outline-primary">Ц</button>
-                            <button type="button" class="btn btn-outline-primary">Ч</button>
-                            <button type="button" class="btn btn-outline-primary">Ш</button>
-                            <button type="button" class="btn btn-outline-primary">Щ</button>
-                            <button type="button" class="btn btn-outline-primary">Г</button>
-                            <button type="button" class="btn btn-outline-primary">Э</button>
-                            <button type="button" class="btn btn-outline-primary">Ю</button>
-                            <button type="button" class="btn btn-outline-primary">Я</button>
+                            <button type="button" id="Все" value="Все" class="btn btn-outline-primary">Все</button>
+                            {% for letter in alphabet %}
+                                <button type="button" name="{{ letter }}" value="{{ letter }}" class="btn btn-outline-primary">{{ letter }}</button>
+                            {% endfor %}
                         </div>
                     </div>
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Фамилия
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary">Все</button>
-                            <button type="button" class="btn btn-outline-primary">А</button>
-                            <button type="button" class="btn btn-outline-primary">Б</button>
-                            <button type="button" class="btn btn-outline-primary">В</button>
-                            <button type="button" class="btn btn-outline-primary">Г</button>
-                            <button type="button" class="btn btn-outline-primary">Д</button>
-                            <button type="button" class="btn btn-outline-primary">Е</button>
-                            <button type="button" class="btn btn-outline-primary">Ж</button>
-                            <button type="button" class="btn btn-outline-primary">З</button>
-                            <button type="button" class="btn btn-outline-primary">И</button>
-                            <button type="button" class="btn btn-outline-primary">К</button>
-                            <button type="button" class="btn btn-outline-primary">Л</button>
-                            <button type="button" class="btn btn-outline-primary">М</button>
-                            <button type="button" class="btn btn-outline-primary">Н</button>
-                            <button type="button" class="btn btn-outline-primary">О</button>
-                            <button type="button" class="btn btn-outline-primary">П</button>
-                            <button type="button" class="btn btn-outline-primary">Р</button>
-                            <button type="button" class="btn btn-outline-primary">С</button>
-                            <button type="button" class="btn btn-outline-primary">Т</button>
-                            <button type="button" class="btn btn-outline-primary">У</button>
-                            <button type="button" class="btn btn-outline-primary">Ф</button>
-                            <button type="button" class="btn btn-outline-primary">Х</button>
-                            <button type="button" class="btn btn-outline-primary">Ц</button>
-                            <button type="button" class="btn btn-outline-primary">Ч</button>
-                            <button type="button" class="btn btn-outline-primary">Ш</button>
-                            <button type="button" class="btn btn-outline-primary">Щ</button>
-                            <button type="button" class="btn btn-outline-primary">Г</button>
-                            <button type="button" class="btn btn-outline-primary">Э</button>
-                            <button type="button" class="btn btn-outline-primary">Ю</button>
-                            <button type="button" class="btn btn-outline-primary">Я</button>
+                            <button type="button" name="Все" value="Все" class="btn btn-outline-primary">Все</button>
+                            {% for letter in alphabet %}
+                                <button type="button" name="{{ letter }}" value="{{ letter }}" class="btn btn-outline-primary">{{ letter }}</button>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
 
-
+                </form>
                 <table class="table table-sm">
                     <thead>
                         <tr>
