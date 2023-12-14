@@ -75,7 +75,7 @@ def fill_storage(request):
     solution = Solution.objects.get(pk=rate.solution_id)
     task =Task.objects.get(pk=solution.task_id)
     topic = Topic.objects.get(pk=task.topic_id)
-    promt=topic.system_text
+    promt=topic.subsection.system_text
     model=NeuralNetwork.objects.get(pk=rate.neural_id)
     neural_answer = request_.neural_answer
     reqest_storage=request_.storage_id
