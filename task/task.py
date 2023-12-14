@@ -17,7 +17,7 @@ def long_running_task():
         model=rate.neural.neural_name
         solution = rate.solution
         task=solution.task
-        system_text=task.topic.system_text
+        system_text=task.topic.subsection.system_text
 
 
         content ="Дано задание"+"\n"+ get_clean_text(task.formulation)+"\n"+"Дано решение"+"\n"+solution. program_code
