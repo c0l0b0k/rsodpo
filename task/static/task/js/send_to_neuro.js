@@ -48,16 +48,14 @@ $(document).ready(function() {
 //    var task = document.getElementById('id_task').value
     var editor = CKEDITOR.instances.id_task;
     var task = editor.getData();
-    var task_id=document.getElementById('id_choose_task').value
-    var difficulty= document.getElementById('id_difficulty').value
+
+    var subsection= document.getElementById('id_subsection').value
     var solution =document.getElementById('id_program_code').value
-    var topic=document.getElementById('id_topic')
-    topic = topic.value
+
+
 
     var data = {
-      difficulty:difficulty,
-      topic:topic,
-      task_id:task_id,
+      subsection:subsection,
       task:task,
       solution:solution
     };
@@ -69,9 +67,9 @@ $(document).ready(function() {
       success: function(response) {
         editor.setData('');
         document.getElementById('id_topic').value="";
-          var temp1=document.getElementById('id_task').value="";
+
         var temp1=document.getElementById('id_program_code').value=""
-         var temp1=document.getElementById('id_difficulty').value=""
+         var temp1=document.getElementById('id_subsection').value=""
         $('#id_task').val('');
       },
       error: function(error) {

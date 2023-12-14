@@ -27,13 +27,7 @@ def render_grouped_tasks(topic, grouped_tasks):
 @register.simple_tag
 def link_tasks(list_task):
     tasks = Task.objects.filter(pk__in=list_task)
-    print("-------------")
-    print(tasks)
-    print("-------------")
     task_ids = list_task
-    print("++++++++++")
-    print(task_ids)
-    print("++++++++++")
     params = {'task_list': ','.join(map(str, task_ids))}
     task_links = format_html_join(
         '', '<a  class="btn btn-outline-primary" href="{}">Задача {}</a></li>',

@@ -55,5 +55,37 @@ def get_clean_text(html_content):
     return html_content
 
 
+import re
+from pymystem3 import Mystem
+from string import punctuation
+import nltk
+from nltk.corpus import stopwords
+from gensim.models import Word2Vec
+import random
+import numpy as np
+import tensorflow as tf
+from keras.layers import Dense, Conv1D, GlobalMaxPooling1D, Input
+from keras.models import Model
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+mystem = Mystem()
+russian_stopwords = stopwords.words("russian")
+
+
+def preprocess_text(text):
+    text = re.sub("[^а-яА-Я]", " ", text)
+    tokens = mystem.lemmatize(text.lower())
+    tokens = [token for token in tokens if token not in russian_stopwords
+              and token.strip() not in punctuation]
+
+    text = " ".join(tokens)
+
+    return text
+
+
 
 

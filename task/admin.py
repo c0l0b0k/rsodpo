@@ -8,8 +8,8 @@ class AuthGroupsAdmin(admin.ModelAdmin):
     list_editable=('name',)
 @admin.register(StudyGroup)
 class StudyGroupAdmin(admin.ModelAdmin):
-    list_display = ('group_id','group_name','student')
-    list_editable =('group_name','student')
+    list_display = ('group_id','group_name')
+    list_editable =('group_name',)
 @admin.register(Speciality)
 class SpecialityAdmin(admin.ModelAdmin):
     list_display = ('spec_id','spec_name')
@@ -20,8 +20,8 @@ class UserAdmin(admin.ModelAdmin):
     list_editable =('username',)
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'education_level', 'get_username')
-    list_editable = ('education_level',)
+    list_display = ('id', 'user', 'education_level', 'get_username','study_group')
+    list_editable = ('education_level','study_group')
     def get_username(self, obj):
         return obj.user.username
 @admin.register(Teacher)
@@ -29,6 +29,9 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display = ('id', 'user',  'get_username')
     def get_username(self, obj):
         return obj.user.username
+@admin.register(TeacherGroup)
+class TeacherGroupAdmin(admin.ModelAdmin):
+    list_display = ('teacher','group')
 
 
 
@@ -58,8 +61,8 @@ class TaskModelForm( forms.ModelForm ):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     form = TaskModelForm
-    list_display = ('task_id', 'formulation', 'difficulty','topic', 'get_subsection_name')
-    list_editable =( 'formulation','difficulty', 'topic')
+    list_display = ('task_id', 'formulation','topic', 'get_subsection_name')
+    list_editable =( 'formulation','topic')
     @admin.display(description ='Subsection')
     def get_subsection_name(self, obj):
         return obj.topic.subsection.topic_name if obj.topic.subsection else None

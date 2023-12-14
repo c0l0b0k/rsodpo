@@ -140,17 +140,18 @@ def new_topic(request):
 
     return JsonResponse({'message': 'Success', 'value': t.topic_id,'topic_name':t.topic_name})
 
-def get_tasks_for_topic(request, topic_id):
+def get_subsection_for_topic(request, topic_id):
     topic = get_object_or_404(Topic, topic_id=topic_id)
-    tasks = Task.objects.filter(topic=topic)
-    task_list = [{'id': task.task_id, 'name': str(task)} for task in tasks]
-    return JsonResponse({'tasks': task_list})
+    topics = Topic.objects.filter(subsection=topic).order_by('topic_id')
+    topic_list = [{'id': topic.topic_id, 'name': str(topic)} for topic in topics]
+    return JsonResponse({'topics': topic_list})
 
 
 
 
 @csrf_exempt
 def add_request(request):
+
     data = request.POST
     task = data['task']
     saved_image_paths = process_and_save_images(task)
@@ -165,10 +166,8 @@ def add_request(request):
 
 
 
-    if data["task_id"]=="":
-        t=Task.objects.create(formulation=task, topic=Topic.objects.get(pk=data['topic']),difficulty=data['difficulty'])
-    else:
-        t=Task.objects.get(pk=data['task_id'])
+    t=Task.objects.create(formulation=task,key_words=preprocess_text(task), topic=Topic.objects.get(pk=data['subsection']))
+
 
     s=Solution.objects.create(program_code=data['solution'],task=t)
 
@@ -199,7 +198,7 @@ class login_user(LoginView):
         elif user_group.name=='Students':
             return reverse_lazy('home_student')
         elif user_group.name=='Teachers':
-            return reverse_lazy('home_teachers')
+            return reverse_lazy('pivot_table_teacher')
 
 
 

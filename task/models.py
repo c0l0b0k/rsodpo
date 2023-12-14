@@ -193,7 +193,6 @@ class Task(models.Model):
     formulation =  RichTextField()
     max_mark=models.CharField(blank=True, null=True)
     key_words= models.CharField(blank=True, null=True)
-    difficulty=models.IntegerField(blank=True, null=True)
     topic = models.ForeignKey('Topic', models.DO_NOTHING, blank=True, null=False)
 
     def __str__(self):
@@ -232,7 +231,7 @@ class Student(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)
     education_level = models.CharField(blank=True, null=True)
     spec = models.ForeignKey(Speciality, models.DO_NOTHING, blank=True, null=True)
-
+    study_group = models.ForeignKey('StudyGroup', models.DO_NOTHING, blank=True, null=True)
     def __str__(self):
         return self.user.corp_mail
 
@@ -243,20 +242,23 @@ class Student(models.Model):
 class StudyGroup(models.Model):
     group_id = models.AutoField(primary_key=True)
     group_name = models.CharField()
-    student = models.ForeignKey(Student, models.DO_NOTHING, blank=True, null=True)
+
 
     class Meta:
         managed = True
         db_table = 'study_group'
-
+    def __str__(self):
+        return self.group_name
 
 
 
 class Teacher(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)
     post_name = models.CharField(blank=True, null=True)
+    groups = models.ManyToManyField(StudyGroup, through='TeacherGroup')
 
-
+    def __str__(self):
+        return self.user.corp_mail
     class Meta:
         managed = True
         db_table = 'teacher'
@@ -269,7 +271,3 @@ class TeacherGroup(models.Model):
     class Meta:
         managed = True
         db_table = 'teacher_group'
-
-
-
-
