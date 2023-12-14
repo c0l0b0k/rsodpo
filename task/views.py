@@ -166,7 +166,9 @@ def add_request(request):
 
 
 
-    t=Task.objects.create(formulation=task,key_words=preprocess_text(task), topic=Topic.objects.get(pk=data['subsection']))
+    # t=Task.objects.create(formulation=task,key_words=preprocess_text(task), topic=Topic.objects.get(pk=data['subsection']))
+    t = Task.objects.create(formulation=task,
+                            topic=Topic.objects.get(pk=data['subsection']))
 
 
     s=Solution.objects.create(program_code=data['solution'],task=t)

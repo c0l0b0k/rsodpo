@@ -12,10 +12,11 @@ def pivot_table_teacher(request):
 
     # Передаем только эти группы в форму
     form = PivotTableForm(groups=teacher_groups)
-
+    topics = Topic.objects.filter(subsection=None)
     data = {
         'user': request.user,
         'form': form,
+        'topics':topics
     }
 
     return render(request, 'pivottable.html', data)

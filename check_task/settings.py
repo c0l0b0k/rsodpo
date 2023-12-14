@@ -70,7 +70,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'custom_tags': 'student.templates_tags.custom_tags',
+                'custom_tags': 'student.templatetags.custom_tags',
+                'subsection_tag': 'teacher.templatetags.subsection_tag',
+
 
             }
         },
