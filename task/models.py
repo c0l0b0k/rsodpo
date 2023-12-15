@@ -182,6 +182,8 @@ class Solution(models.Model):
             return self.program_code
         else:
             return str(self.solution_id)
+
+
     class Meta:
         managed = True
         db_table = 'solution'
@@ -235,6 +237,8 @@ class Student(models.Model):
     def __str__(self):
         return self.user.corp_mail
 
+    def get_full_name(self):
+        return f"{self.user.middle_name} {self.user.first_name} {self.user.last_name}"
     class Meta:
         managed = True
         db_table = 'student'

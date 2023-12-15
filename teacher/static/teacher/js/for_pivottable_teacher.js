@@ -44,18 +44,12 @@ $(document).ready(function() {
         });
     });
  $(document).ready(function() {
+
+
+
+
         // Восстановление состояния при загрузке страницы
       var collapsedNodes = $('#collapsedNodesInput').val() ? $('#collapsedNodesInput').val().split(',') : [];
-//        collapsedNodes.forEach(function(nodeId) {
-//
-//            var targetId = '#dashboard-collapse' + nodeId;
-//            var targetCollapse = new bootstrap.Collapse(document.querySelector(targetId));
-//
-//             // Инвертировать состояние collapse
-//            targetCollapse.toggle();
-//        });
-
-
         // Обработка раскрытия/скрытия узла
         $('#topicsList .btn-toggle').click(function() {
             var nodeId = $(this).data('bs-target').replace('#dashboard-collapse', '');
@@ -74,4 +68,17 @@ $(document).ready(function() {
             // Обновление значения скрытого поля
             $('#collapsedNodesInput').val(collapsedNodes.join(','));
         });
+     $('.subsection').click(function() {
+
+            var nodeId = $(this).attr('id').replace('subsection', '');
+
+            // Обновление значения скрытого поля
+            $('#selected_topic').val(nodeId);
+         $('#filter_and_topic').submit();
+        });
+
     });
+ var studyGroupSelect = document.getElementById('id_study_group');
+ studyGroupSelect.addEventListener('change', function() {
+    $('#filter_and_topic').submit();
+  });

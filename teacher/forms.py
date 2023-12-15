@@ -22,5 +22,6 @@ class PivotTableForm(forms.Form):
     selected_letter_name=forms.CharField()
     selected_letter_surname=forms.CharField()
     collapsed_nodes = forms.CharField(required=False, widget=forms.HiddenInput())
+    selected_topic=forms.CharField()
 
 

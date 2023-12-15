@@ -45,8 +45,8 @@ class NeuralNetworkAdmin(admin.ModelAdmin):
     list_editable = ('neural_name',)
 @admin.register(Solution)
 class SolutionAdmin(admin.ModelAdmin):
-    list_display = ('solution_id','program_code','recommend_text','student','task')
-    list_editable = ('program_code','recommend_text','task')
+    list_display = ('solution_id','program_code','recommend_text','data_send','student','task')
+    list_editable = ('program_code','data_send','task')
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('topic_id','topic_name','subsection')

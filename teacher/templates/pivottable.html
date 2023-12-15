@@ -56,7 +56,7 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         {% subsections topic as subsections %}
                         {% for subsection in subsections  %}
-                            <li><a href="#" class="link-dark rounded">{{ subsection.topic_name }}</a></li>
+                            <li><a href="#" id="subsection{{ subsection.topic_id}}" class="link-dark rounded subsection">{{ subsection.topic_name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -69,7 +69,7 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         {% subsections topic as subsections %}
                         {% for subsection in subsections  %}
-                            <li><a href="#" class="link-dark rounded">{{ subsection.topic_name }}</a></li>
+                            <li><a href="#" id="subsection{{ subsection.topic_id}}"  class="link-dark rounded subsection">{{ subsection.topic_name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -80,12 +80,8 @@
             </div>
             <div class="container" style="padding: 16px;">
                 <form method="post" id="filter_and_topic" action="{% url 'pivot_table_teacher' %}">
-                    {% if form.collapsed_nodes.value %}
-                        <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value }}">
-                    {% else %}
-                         <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="">
-                    {% endif %}
-
+                        <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
+                        <input type="hidden" name="selected_topic" id="selected_topic" value="{{ form.selected_topic.value|default:'' }}">
                 <h2>Ответы на задание</h2>
                 <div style="font-size: 0.9rem;">
                     <div style="justify-content: space-between; margin-bottom: 20px;">
@@ -107,7 +103,7 @@
                          {% endfor %}
 
                          </div>
-                        <input type="hidden" name="selected_letter_name" value="{{form.selected_letter_name.value}}" id="selectedLetterNameInput">
+                        <input type="hidden" name="selected_letter_name" value="{{form.selected_letter_name.value|default:''}}" id="selectedLetterNameInput">
                     </div>
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Фамлия
@@ -118,7 +114,7 @@
                          {% endfor %}
 
                          </div>
-                        <input type="hidden" name="selected_letter_surname" value="{{form.selected_letter_surname.value}}" id="selectedLetterSurNameInput">
+                        <input type="hidden" name="selected_letter_surname" value="{{form.selected_letter_surname.value|default:''}}" id="selectedLetterSurNameInput">
                     </div>
                 </div>
 
@@ -136,17 +132,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Эрастов Эраст Эрастович</td>
-                            <td>stud0000111111@study.utmn.ru</td>
-                            <td><button type="button" class="btn btn-primary">
-                                    Просмотр
-                                </button></td>
-                            <td>21.11.2023</td>
-                            <td>1,00/2,00</td>
-                            <td>Оценено</td>
-                        </tr>
+                    {% for solution in solutions %}
+                          <tr>
+                              <th scope="row">1</th>
+                              <th>{{solution.student.get_full_name}}</th>
+                              <th>{{solution.student.user.corp_mail}}</th>
+                              <th>{{solution.solution_id}}</th>
+                              <th>{{solution.data_send}}</th>
+                              <th>
+                               {% if solution.task.max_mark %}
+                                  {{ solution.mark|default:0 }}/{{ solution.task.max_mark }}
+                               {% else %}
+                                  {{ solution.mark|default:0 }}
+                               {% endif %}
+                              </th>
+                          </tr>
+                         {% endfor %}
+
+<!--                        <tr>-->
+<!--                            <th scope="row">1</th>-->
+<!--                            <td>Эрастов Эраст Эрастович</td>-->
+<!--                            <td>stud0000111111@study.utmn.ru</td>-->
+<!--                            <td><button type="button" class="btn btn-primary">-->
+<!--                                    Просмотр-->
+<!--                                </button></td>-->
+<!--                            <td>21.11.2023</td>-->
+<!--                            <td>1,00/2,00</td>-->
+<!--                            <td>Оценено</td>-->
+<!--                        </tr>-->
                     </tbody>
                 </table>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -172,13 +185,18 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'teacher/js/for_pivottable_teacher.js' %}"></script>
 <script>
- window.onload = function () {
-            var scrollPos = localStorage.getItem('scrollPos');
-            if (scrollPos) {
-                window.scrollTo(0, scrollPos);
-                localStorage.removeItem('scrollPos');
-            }
-        };
+window.addEventListener('load', function () {
+    setTimeout(function () {
+    var scrollPos = localStorage.getItem('scrollPos');
+    if (scrollPos) {
+        window.scrollTo({
+            top: scrollPos,
+            behavior: "instant"
+        });
+        localStorage.removeItem('scrollPos');
+    }
+}, 0);
+});
 
 
         window.onbeforeunload = function () {
