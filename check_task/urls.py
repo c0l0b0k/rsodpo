@@ -49,6 +49,7 @@ urlpatterns = [
 
     # для teacher
     path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),
+    path('lab_view/',lab_view,name='lab_view'),
 
 ]
 if settings.DEBUG:

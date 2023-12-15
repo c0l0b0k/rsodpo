@@ -1,0 +1,146 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab view page</title>
+  <!-- Подключение CSS файла bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!-- Далее может идти подключение любого другого CSS файла сайта -->
+  <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/stylelabview.css' %}">
+</head>
+
+<body>
+  <div style="display: flex; flex-direction: column; 
+    justify-content: space-between; height: 100vh;">
+    <header style="margin-bottom: 40px">
+      <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
+        <div class="container">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
+              viewBox="0 0 24 24">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+              </path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <strong>CodeUniver.se</strong>
+          </a>
+
+          <div class="dropdown">
+            <button class="btn btn-dark nav-item nav-link px-2 text-white" type="button" data-bs-toggle="dropdown"
+              aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              Иванов И.И.
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Выйти</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main container">
+      <div class="flex-shrink-0 bg-white" style="width: 250px;">
+        <ul class="list-unstyled ps-0">
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+              Лабораторная работа 1
+            </button>
+            <div class="collapse show" id="home-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+              Лабораторная работа 2
+            </button>
+            <div class="collapse" id="dashboard-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+              Лабораторная работа 3
+            </button>
+            <div class="collapse" id="orders-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
+                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="container page-container">
+        <strong>Задание 3</strong>
+        <div style="margin-bottom: 20px;">
+          <p>
+            Вычислить значение функции f(x, t) = ((1+x^2-2*x*t)/(1 + sqrt(1 + 3*(cos(x*t))^4))) +
+            sqrt(x*t*sin(t))
+          </p>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 20px;">
+          <span class="input-group-text">Код:</span>
+          <textarea class="form-control" aria-label="With textarea" style="height: 230px;
+          resize: none;"></textarea>
+        </div>
+        <div style="display: flex; flex-direction: row; 
+        justify-content: space-between;">
+          <a href="#">Ваши решения</a>
+          <button type="button" class="btn btn-primary">Отправить решение</button>
+        </div>
+
+        <div class="row comment">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Комментарий преподавателя:</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi eaque
+                  sint minus magnam. Aspernatur, optio reiciendis magni iste nam obcaecati itaque laborum
+                  illum sint, minima fuga voluptate soluta, est necessitatibus.(Для преподавателя тут
+                  будет input)</p>
+              </div>
+            </div>
+          
+          </div>
+          <div class="col-md-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Оценка</h5>
+                <p class="card-text">2</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="footer py-3 bg-dark text-white-50 border-top" style="width: 100%; margin-top: 40px;">
+
+      <div class="container text-center">
+        <small>Developed by: Giyasov N.R., Kopyrin E.A., Sagadeev A.R., Shuruev A.V.</small>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

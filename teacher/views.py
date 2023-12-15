@@ -6,7 +6,7 @@ from teacher.forms import *
 
 @csrf_exempt
 def pivot_table_teacher(request):
-    topics = Topic.objects.filter(subsection=None)
+    topics = Topic.objects.filter(subsection=None).order_by('topic_id')
     if request.method == 'GET':
         # Получаем преподавателя для текущего пользователя
         teacher = Teacher.objects.get(user=request.user)
@@ -84,3 +84,10 @@ def pivot_table_teacher(request):
 
 
         return render(request, 'pivottable.html', context)
+
+
+
+
+
+def lab_view(request):
+    return render(request, 'labview.html')
