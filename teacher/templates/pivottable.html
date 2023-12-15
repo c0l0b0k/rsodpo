@@ -12,6 +12,7 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Далее может идти подключение любого другого CSS файла сайта -->
     <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/stylelabview.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/temp_pivottable.css' %}">
 </head>
 
 <body>
@@ -21,7 +22,8 @@
             <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
                 <div class="container">
                     <a href="#" class="navbar-brand d-flex align-items-center">
-                        <img src="logo.png" width="40" height="40">
+<!--                        src="logo.png" -->
+                        <img width="40" height="40">
                         <strong>CodeUniver.se</strong>
                     </a>
 
@@ -41,62 +43,82 @@
 
         <main class="main">
             <div class="flex-shrink-0 p-3 bg-white" style="width: 250px;">
-                <ul class="list-unstyled ps-0">
-                    {% for topic in topics %}
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                            data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="false">
-                            {{topic.topic_name}}
-                        </button>
-                        <div class="collapse" id="dashboard-collapse{{topic.topic_id}}">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                {% subsections topic as subsections %}
-                                {% for subsection in subsections  %}
-                                <li><a href="#" class="link-dark rounded">{{ subsection.topic_name }}</a></li>
-                                    {% endfor %}
 
-                            </ul>
-                        </div>
-                    </li>
-                      {% endfor %}
-                </ul>
+    <ul class="list-unstyled ps-0" id="topicsList">
+        {% for topic in topics %}
+            <li class="mb-1">
+                 {% if topic.topic_id in collapsed_nodes %}
+                <button class="btn btn-toggle align-items-center rounded " data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="true">
+                    {{topic.topic_name}}
+                </button>
+                <div class="collapse show" id="dashboard-collapse{{topic.topic_id}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% subsections topic as subsections %}
+                        {% for subsection in subsections  %}
+                            <li><a href="#" class="link-dark rounded">{{ subsection.topic_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="false">
+                    {{topic.topic_name}}
+                </button>
+                <div class="collapse" id="dashboard-collapse{{topic.topic_id}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% subsections topic as subsections %}
+                        {% for subsection in subsections  %}
+                            <li><a href="#" class="link-dark rounded">{{ subsection.topic_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
             </div>
             <div class="container" style="padding: 16px;">
-                <form method="post" action="{% pivot_table_teacher %}">
+                <form method="post" id="filter_and_topic" action="{% url 'pivot_table_teacher' %}">
+                    {% if form.collapsed_nodes.value %}
+                        <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value }}">
+                    {% else %}
+                         <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="">
+                    {% endif %}
+
                 <h2>Ответы на задание</h2>
                 <div style="font-size: 0.9rem;">
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Действия для оценивания
-                        <select name="" id="">
-                            <option value="">Выберите...</option>
-                            <option value="">Оценено</option>
-                            <option value="">Ожидает проверки</option>
-                             <option value="">Ожидает проверки ответ нс не пришёл</option>
-
-                        </select>
+                       {{form.status_solution}}
                     </div>
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Группа
                         {{form.study_group}}
 
                     </div>
+
                     <div style="justify-content: space-between; margin-bottom: 20px;">
                         Имя
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                            <button type="button" id="Все" value="Все" class="btn btn-outline-primary">Все</button>
-                            {% for letter in alphabet %}
-                                <button type="button" name="{{ letter }}" value="{{ letter }}" class="btn btn-outline-primary">{{ letter }}</button>
-                            {% endfor %}
-                        </div>
+                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                             <button type="button" data-letter="Все" class="btn btn-outline-primary alphabet-button-name">Все</button>
+                         {% for letter in alphabet %}
+                             <button type="button" data-letter="{{ letter }}" class="btn btn-outline-primary alphabet-button-name">{{ letter }}</button>
+                         {% endfor %}
+
+                         </div>
+                        <input type="hidden" name="selected_letter_name" value="{{form.selected_letter_name.value}}" id="selectedLetterNameInput">
                     </div>
                     <div style="justify-content: space-between; margin-bottom: 20px;">
-                        Фамилия
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                            <button type="button" name="Все" value="Все" class="btn btn-outline-primary">Все</button>
-                            {% for letter in alphabet %}
-                                <button type="button" name="{{ letter }}" value="{{ letter }}" class="btn btn-outline-primary">{{ letter }}</button>
-                            {% endfor %}
-                        </div>
+                        Фамлия
+                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                             <button type="button" data-letter="Все" class="btn btn-outline-primary alphabet-button-surname">Все</button>
+                         {% for letter in alphabet %}
+                             <button type="button" data-letter="{{ letter }}" class="btn btn-outline-primary alphabet-button-surname">{{ letter }}</button>
+                         {% endfor %}
+
+                         </div>
+                        <input type="hidden" name="selected_letter_surname" value="{{form.selected_letter_surname.value}}" id="selectedLetterSurNameInput">
                     </div>
                 </div>
 
@@ -133,7 +155,7 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
-    </div>
+
     </main>
 
     <footer class="footer mt-auto py-3 bg-dark text-white-50 border-top" style="width: 100%; margin-top: 40px;">
@@ -147,6 +169,22 @@
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{% static 'teacher/js/for_pivottable_teacher.js' %}"></script>
+<script>
+ window.onload = function () {
+            var scrollPos = localStorage.getItem('scrollPos');
+            if (scrollPos) {
+                window.scrollTo(0, scrollPos);
+                localStorage.removeItem('scrollPos');
+            }
+        };
+
+
+        window.onbeforeunload = function () {
+            localStorage.setItem('scrollPos', window.scrollY);
+        };
+ </script>
 </body>
 
 </html>
