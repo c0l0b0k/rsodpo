@@ -6,9 +6,6 @@ body {
 main {
     display: flex;
     flex-wrap: nowrap;
-    height: 100vh;
-    height: -webkit-fill-available;
-    max-height: 100vh;
 }
 button.btn.btn-toggle.align-items-center.rounded {
     font-size: 18px;
@@ -80,5 +77,6 @@ button.btn.btn-toggle.align-items-center.rounded {
 
 .page-container {
     max-width: 700px;
-    margin: 0px 0 0 40px;
+    max-height:none;
+    margin: 0px 0 20px 40px;
 }

@@ -35,18 +35,41 @@ class TeacherGroupAdmin(admin.ModelAdmin):
 
 
 
+
+class RateAdminForm(forms.ModelForm):
+    recommend_text = forms.CharField(widget=forms.Textarea)
+    ideal_text= forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        model = Rate
+        fields = '__all__'
+
 @admin.register(Rate)
 class RateAdmin(admin.ModelAdmin):
-    list_display = ('rate_id','recommend_text','ideal_text','solution','neural')
-    list_editable =('recommend_text','ideal_text','solution','neural')
+    form = RateAdminForm
+    list_display = ('rate_id', 'solution', 'neural')
+
+
 @admin.register(NeuralNetwork)
 class NeuralNetworkAdmin(admin.ModelAdmin):
     list_display = ('neural_id','neural_name')
     list_editable = ('neural_name',)
+
+
+class SolutionAdminForm(forms.ModelForm):
+    program_code= forms.CharField( widget=forms.Textarea )
+    class Meta:
+        model = Solution
+        fields = '__all__'
+
+
 @admin.register(Solution)
 class SolutionAdmin(admin.ModelAdmin):
-    list_display = ('solution_id','program_code','recommend_text','data_send','student','task')
-    list_editable = ('program_code','data_send','task')
+    form = SolutionAdminForm
+    list_display = ('solution_id', 'program_code', 'recommend_text', 'data_send', 'student', 'task')
+    list_editable = ('program_code', 'data_send', 'task')
+
+
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('topic_id','topic_name','subsection')

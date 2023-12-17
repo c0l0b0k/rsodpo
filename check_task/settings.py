@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_rq',
     'ckeditor',
     'ckeditor_uploader',
+    'markdown_deux',
+    'pygments',
 
 
 ]
@@ -72,6 +74,7 @@ TEMPLATES = [
             'libraries': {
                 'custom_tags': 'student.templatetags.custom_tags',
                 'subsection_tag': 'teacher.templatetags.subsection_tag',
+                'highlight_code': 'teacher.templatetags.highlight_code',
 
 
             }

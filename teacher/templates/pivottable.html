@@ -137,7 +137,13 @@
                               <th scope="row">1</th>
                               <th>{{solution.student.get_full_name}}</th>
                               <th>{{solution.student.user.corp_mail}}</th>
-                              <th>{{solution.solution_id}}</th>
+                              <th>
+                                  <button type="button" class="btn btn-primary">
+                                    <a href="{% url 'lab_view' solution_id=solution.solution_id %}" style="color: white; text-decoration: none;">
+                                    Просмотр
+                                    </a>
+                                  </button>
+                              </th>
                               <th>{{solution.data_send}}</th>
                               <th>
                                {% if solution.task.max_mark %}

@@ -4,6 +4,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 from teacher.forms import *
 
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+import markdown
+
 @csrf_exempt
 def pivot_table_teacher(request):
     topics = Topic.objects.filter(subsection=None).order_by('topic_id')
@@ -89,5 +94,26 @@ def pivot_table_teacher(request):
 
 
 
-def lab_view(request):
-    return render(request, 'labview.html')
+def lab_view(request, solution_id):
+    if request.method == 'GET':
+        solution = Solution.objects.get(solution_id=solution_id)
+        task = solution.task
+        rate = Rate.objects.get(solution_id=solution.solution_id)
+        python_code=solution.program_code
+        # Подсветка кода
+        lexer = get_lexer_by_name("python", stripall=True)
+        formatter = HtmlFormatter(style="friendly", linenos=True, full=True)
+
+        # Подсветка кода
+        student_code = highlight(python_code, lexer, formatter)
+        context = {
+            'user': request.user,
+            'task': task,
+            'solution':solution,
+            'rate':rate,
+            'student_code':student_code,
+
+
+
+        }
+        return render(request, 'labview.html',context)

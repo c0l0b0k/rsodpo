@@ -188,8 +188,6 @@ class Solution(models.Model):
         managed = True
         db_table = 'solution'
 
-
-
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     formulation =  RichTextField()
