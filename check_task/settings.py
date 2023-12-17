@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'check_task.urls'
@@ -91,10 +92,10 @@ WSGI_APPLICATION = 'check_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rso8',
+        'NAME': 'rsodpo_solution',
         'USER': 'postgres',
         'PASSWORD': '0268',
-        'HOST': 'localhost',
+        'HOST': '26.98.110.227',
         'PORT': '5432',
     }
 }
@@ -170,3 +171,6 @@ AUTH_USER_MODEL = 'task.User'
 LOGOUT_REDIRECT_URL='login_user'
 CKEDITOR_UPLOAD_PATH = "img_in_tasks/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+SESSION_COOKIE_AGE = 120960
