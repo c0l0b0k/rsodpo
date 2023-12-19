@@ -15,7 +15,6 @@ class AddPostForm(forms.Form):
     sub_topic = forms.ModelChoiceField(required=False,empty_label="", queryset=Topic.objects.all(), label="Раздел")
     system_role_text=forms.CharField(required=False,widget=forms.Textarea(), label="Технические инстр. нс")
 
-
     model=forms.ModelChoiceField(required=True, queryset=  NeuralNetwork.objects.all(),label="Нс")
 
 

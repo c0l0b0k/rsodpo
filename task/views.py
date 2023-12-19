@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 import g4f
+g4f.debug.check_version = False
 from .models import *
 from django.core import serializers
 from task.forms import *

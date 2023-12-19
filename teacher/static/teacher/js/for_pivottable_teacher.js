@@ -14,40 +14,28 @@ $(document).ready(function() {
         // Обработка нажатия на кнопку
         $('.alphabet-button-name').click(function() {
             var letter = $(this).data('letter');
-
             // Устанавливаем скрытое поле с выбранной буквой
             $('#selectedLetterNameInput').val(letter);
-
             // Сохраняем значение в localStorage
             localStorage.setItem('selectedLetterName', letter);
-
             // Изменяем цвет нажатой кнопки
             $(this).removeClass('btn-outline-primary').addClass('btn-success');
-
             // Делаем submit формы
             $('#filter_and_topic').submit();
         });
         $('.alphabet-button-surname').click(function() {
             var letter = $(this).data('letter');
-
             // Устанавливаем скрытое поле с выбранной буквой
             $('#selectedLetterSurNameInput').val(letter);
-
             // Сохраняем значение в localStorage
             localStorage.setItem('selectedLetterSurName', letter);
-
             // Изменяем цвет нажатой кнопки
             $(this).removeClass('btn-outline-primary').addClass('btn-success');
-
             // Делаем submit формы
             $('#filter_and_topic').submit();
         });
     });
  $(document).ready(function() {
-
-
-
-
         // Восстановление состояния при загрузке страницы
       var collapsedNodes = $('#collapsedNodesInput').val() ? $('#collapsedNodesInput').val().split(',') : [];
         // Обработка раскрытия/скрытия узла

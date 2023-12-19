@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'markdown_deux',
     'pygments',
-    'demo'
+    'demo',
+    'django_celery_beat',
+    'django_celery_results',
+
 
 
 
@@ -179,3 +182,10 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 SESSION_COOKIE_AGE = 120960
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# Celery Configuration Options

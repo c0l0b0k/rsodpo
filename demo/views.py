@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from demo.forms import DemoForm
-from demo.task import  sent_neuro_task
+
 from task.models import *
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -10,10 +10,7 @@ from pygments.formatters import HtmlFormatter
 from django_rq import enqueue, job,  get_queue
 import time, schedule
 
-@job('default', timeout=600)
-def run_sent_neuro_task(storage_id):
-    print("tttt")
-    sent_neuro_task(storage_id)
+#
 
 @csrf_exempt
 def demo(request):
@@ -37,7 +34,7 @@ def demo(request):
 
 
         queue = get_queue('default')
-        job = queue.enqueue(run_sent_neuro_task, sr.storage_id)
+        # job = queue.enqueue(run_sent_neuro_task, sr.storage_id)
     return render(request, 'blank.html', contex)
 @csrf_exempt
 def reqvests_list(request):

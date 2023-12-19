@@ -4,9 +4,6 @@ $(document).ready(function() {
     var editor = CKEDITOR.instances.id_task;
     var task = editor.getData();
     var solution = document.getElementById('id_program_code').value
-
-
-
     var model=document.getElementById('id_model')
     model = model.options[model.selectedIndex].text
 
