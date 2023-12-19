@@ -64,6 +64,10 @@ def fill_storage(request):
         rate.recommend_text=form.cleaned_data["recommend_text_neural"]
         rate.ideal_text=form.cleaned_data["ideal_text_neural"]
         rate.save()
+        if rate.kr6!="":
+            rates= Rate.objects.filter(solution=rate.neural)
+            for r in rates:
+                r.kr6=rate.kr6
         record_to_delete = StorageRequests.objects.get(pk=form.cleaned_data["reqest_storage"])
         record_to_delete.delete()
 
