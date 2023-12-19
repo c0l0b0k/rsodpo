@@ -104,9 +104,6 @@ def sent_neuro(request):
     print("dzfd")
     if request.method == 'POST':
         data = request.POST
-        print(data)
-        print("+++++++++")
-        print(data["model"])
 
         system_role = Topic.objects.get(pk=data["topic"]).system_text
         print(system_role)
@@ -120,7 +117,6 @@ def sent_neuro(request):
             model= model,
             messages=[{"role": "system", "content":system_role}, {"role": "user",
                                                                            "content": content}],
-
         )
         print(content)
         print(response)
@@ -196,9 +192,9 @@ class login_user(LoginView):
         user_group = self.request.user.groups.first()
         if user_group==None:
             return  reverse_lazy('admin:index')
-        #if group_name == 'студенты':
-        elif user_group.name=='Students':
-            return reverse_lazy('home_student')
+
+        # elif user_group.name=='Students':
+        #     return reverse_lazy('home_student')
         elif user_group.name=='Teachers':
             return reverse_lazy('pivot_table_teacher')
 

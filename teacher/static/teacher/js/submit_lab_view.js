@@ -10,21 +10,23 @@ function submitForm() {
 });
         return; // Преждевременный выход из функции
     }
+    var path="/lab_view/"+document.getElementById("solution").value+"/";
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "/lab_view/"); // Замените "/your-form-endpoint/" на реальный URL для обработки формы в Django
+    form.setAttribute("action", path); // Замените "/your-form-endpoint/" на реальный URL для обработки формы в Django
 
     // Создаем скрытые поля для каждого ввода и добавляем их в форму
     var field1 = document.createElement("input");
     field1.setAttribute("type", "hidden");
     field1.setAttribute("name", "recommend_text");
     field1.value = document.getElementById("chat-container").innerHTML;
+    form.appendChild(field1);
 
 
     var field2 = document.createElement("textarea");
     field2.setAttribute("type", "hidden");
     field2.setAttribute("name", "recommend_teacher");
-    field2.setAttribute("value", document.getElementById("recommend_teacher").value);
+    field2.value= document.getElementById("recommend_teacher").value;
     form.appendChild(field2);
 
     var field3 = document.createElement("input");

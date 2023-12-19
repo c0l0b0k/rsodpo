@@ -122,6 +122,7 @@ class StorageRequests(models.Model):
      neural_answer=models.CharField(blank=True, null=True)
      is_done =models.BooleanField(blank=True, null=True)
      rate=models.ForeignKey('Rate', models.DO_NOTHING, blank=True, null=True)
+     user=models.ForeignKey('Teacher', models.DO_NOTHING, blank=True, null=True)
      class Meta:
          managed = True
          db_table = 'storage_requests'
@@ -170,7 +171,7 @@ class Rate(models.Model):
 class Solution(models.Model):
     solution_id = models.AutoField(primary_key=True)
     program_code = models.CharField(blank=True, null=True)
-    mark = models.IntegerField(blank=True, null=True)
+    mark = models.DecimalField(max_digits=5, decimal_places=2,blank=True, null=True)
     recommend_text = models.CharField(blank=True, null=True)
     data_send= models.DateTimeField(blank=True, null=True)
     student = models.ForeignKey('Student', models.DO_NOTHING, blank=True, null=True)

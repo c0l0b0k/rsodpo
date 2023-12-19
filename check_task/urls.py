@@ -24,7 +24,7 @@ from student.views import *
 from task.views import *
 from django.urls import include, path
 from teacher.views import *
-
+from demo.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls,name='admin'),
@@ -50,7 +50,11 @@ urlpatterns = [
     # для teacher
     path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),
     path('lab_view/<int:solution_id>/', lab_view, name='lab_view'),
-    path('lab_view/', lab_view, name='lab_view_default'),
+
+    #demo
+    path('demo/',demo,name='demo'),
+    path('reqvests_list/',reqvests_list,name='reqvests_list'),
+    path('answer_view/<int:storage_id>/', answer_view, name='answer_view'),
 
 
 ]

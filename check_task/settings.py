@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'markdown_deux',
     'pygments',
+    'demo'
+
+
 
 
 ]
@@ -63,7 +66,8 @@ ROOT_URLCONF = 'check_task.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'student', 'templates'),os.path.join(BASE_DIR, 'teacher', 'templates') ],
+        'DIRS': [os.path.join(BASE_DIR, 'student', 'templates'),os.path.join(BASE_DIR, 'teacher', 'templates')
+            ,os.path.join(BASE_DIR, 'demo', 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,10 +96,10 @@ WSGI_APPLICATION = 'check_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rsodpo_solution',
+        'NAME': 'rso8',
         'USER': 'postgres',
         'PASSWORD': '0268',
-        'HOST': '26.98.110.227',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -137,7 +141,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'teacher', 'static')
+    os.path.join(BASE_DIR,'teacher', 'static'),
+os.path.join(BASE_DIR,'demo', 'static')
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

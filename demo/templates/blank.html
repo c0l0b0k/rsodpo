@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blank page</title>
+    <!-- Подключение CSS файла bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- Далее может идти подключение любого другого CSS файла сайта -->
+     <link rel="stylesheet" type="text/css" href="{% static 'demo/css/styleblank.css' %}">
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column; 
+    justify-content: space-between; height: 100vh;">
+        <header style="margin-bottom: 40px">
+            <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
+                <div class="container">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <img src="logo.png" width="40" height="40">
+                        <strong>CodeUniver.se</strong>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main class="main container">
+            <div class="container">
+                <form method="post" action="{% url 'demo' %}">
+                <div style="display: flex; flex-direction: row;">
+                    <div style="justify-content: space-between; margin-bottom: 20px; margin-right: 20px;">
+                        Выберите тему
+                        {{form.topic}}
+                    </div>
+
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <span class="input-group-text">Формулировка задания:</span>
+                    {{form.task}}
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <span class="input-group-text">Код:</span>
+                    {{form.solution}}
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <a href="{% url 'reqvests_list' %}">Отправленные решения</a>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+                </form>
+            </div>
+
+        </main>
+        <footer class="footer mt-auto py-3 bg-dark text-white-50 border-top" style="width: 100%; margin-top: 40px;">
+
+            <div class="container text-center">
+                <small>Developed by: Giyasov N.R., Kopyrin E.A., Sagadeev A.R., Shuruev A.V.</small>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
