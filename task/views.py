@@ -64,7 +64,7 @@ def fill_storage(request):
         rate.recommend_text=form.cleaned_data["recommend_text_neural"]
         rate.ideal_text=form.cleaned_data["ideal_text_neural"]
         rate.save()
-        if rate.kr6!="":
+        if rate.kr6!=None:
             rates= Rate.objects.filter(solution=rate.neural)
             for r in rates:
                 r.kr6=rate.kr6
@@ -73,7 +73,7 @@ def fill_storage(request):
 
     else:
         form = FillFromStorageForm()
-    request_=StorageRequests.objects.filter(is_done=True).first()
+    request_=StorageRequests.objects.filter(is_done=True).order_by('storage_id').first()
 
 
     rate = Rate.objects.get(pk=request_.rate_id)
