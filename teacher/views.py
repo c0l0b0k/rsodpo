@@ -154,7 +154,7 @@ def lab_view(request, solution_id):
         recommend_teacher=data['recommend_teacher']
         mark=data['mark']
 
-        recommend_text+="<div><p>Комментарий преподавателя</p><p>"+recommend_teacher+"</p><div>"
+        recommend_text+="<div><h5>Комментарий преподавателя:</h5><p>"+recommend_teacher+"</p><div>"
         print(recommend_text)
         solution = Solution.objects.get(solution_id=solution_id)
         solution.mark=mark

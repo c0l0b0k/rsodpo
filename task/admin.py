@@ -57,7 +57,7 @@ class NeuralNetworkAdmin(admin.ModelAdmin):
 
 
 class SolutionAdminForm(forms.ModelForm):
-    program_code= forms.CharField( widget=forms.Textarea )
+    program_code= forms.CharField(required=False, widget=forms.Textarea )
     class Meta:
         model = Solution
         fields = '__all__'
