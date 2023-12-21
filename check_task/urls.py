@@ -44,8 +44,7 @@ urlpatterns = [
     path('start_fon_task/',start_fon_task, name= 'start_fon_task/'),
 
     # для student
-    path('home_student/',home_student,name='home_student'),
-    path('home_student/task_view/<int:number>/', task_view, name='task_view'),
+    path('task_view', task_view, name='task_view'),
 
     # для teacher
     path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),

@@ -198,8 +198,8 @@ class login_user(LoginView):
         if user_group==None:
             return  reverse_lazy('admin:index')
 
-        # elif user_group.name=='Students':
-        #     return reverse_lazy('home_student')
+        elif user_group.name=='Students':
+            return reverse_lazy('task_view')
         elif user_group.name=='Teachers':
             return reverse_lazy('pivot_table_teacher')
 

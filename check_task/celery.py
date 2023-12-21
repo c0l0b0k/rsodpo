@@ -17,9 +17,3 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-app.conf.beat_schedule = {
-    'test-task':{
-        'task':'demo.tasks.check',
-        'schedule':15.0
-    }
-}

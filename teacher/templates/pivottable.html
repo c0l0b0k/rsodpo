@@ -78,6 +78,8 @@
         {% endfor %}
     </ul>
             </div>
+
+
             <div class="container" style="padding: 16px;">
                 <form method="post" id="filter_and_topic" action="{% url 'pivot_table_teacher' %}">
                         <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
@@ -203,8 +205,6 @@ window.addEventListener('load', function () {
     }
 }, 0);
 });
-
-
         window.onbeforeunload = function () {
             localStorage.setItem('scrollPos', window.scrollY);
         };

@@ -1,0 +1,199 @@
+{% load static %}
+{% load subsection_tag %}
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab view page</title>
+  <!-- Подключение CSS файла bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Далее может идти подключение любого другого CSS файла сайта -->
+  <link rel="stylesheet"  href="{% static 'css/stylelabview.css' %}">
+    <link rel="stylesheet"  href="{% static 'student/css/fix_stud_lab_view.css' %}">
+
+</head>
+
+<body>
+  <div style="display: flex; flex-direction: column; 
+    justify-content: space-between; height: 100vh;">
+    <header style="width: 100%; position: fixed; z-index: 1;">
+      <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
+        <div style="margin-left: 5px;">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <img src="logo.png">
+            <strong>CodeUniver.se</strong>
+          </a>
+        </div>
+
+        <div class="dropdown" style="margin-right: 5px;">
+          <button class="btn btn-dark nav-item nav-link px-2 text-white" type="button" data-bs-toggle="dropdown"
+            aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            Иванов И.И.
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Выйти</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </header>
+
+    <main class="main">
+      <div class="sidebar">
+        <ul class="list-unstyled ps-0" id="topicsList">
+          {% for topic in topics %}
+          <li class="mb-1">
+             {% if topic.topic_id in collapsed_nodes %}
+            <button class="btn btn-toggle align-items-center rounded " data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="true">
+                    {{topic.topic_name}}
+            </button>
+            <div class="collapse show" id="dashboard-collapse{{topic.topic_id}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% subsections topic as subsections %}
+                        {% for subsection in subsections  %}
+                            <li><a href="#" id="subsection{{ subsection.topic_id}}" class="link-dark rounded subsection">{{ subsection.topic_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+
+         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="false">
+                    {{topic.topic_name}}
+                </button>
+                <div class="collapse" id="dashboard-collapse{{topic.topic_id}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% subsections topic as subsections %}
+                        {% for subsection in subsections  %}
+                            <li><a href="#" id="subsection{{ subsection.topic_id}}"  class="link-dark rounded subsection">{{ subsection.topic_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+      </div>
+
+
+
+
+
+      <div class="container page-container">
+
+
+                <form method="post" id="sidebar_menu" action="">
+          <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
+          <input type="hidden" name="selected_topic" id="selected_topic" value="{{ form.selected_topic.value|default:'' }}">
+            </form>
+          {% if solution %}
+          <strong>{{task.topic.topic_name}}</strong>
+        <div style="margin-bottom: 20px;">
+          <p>{{task.formulation |safe}}</p>
+        </div>
+          {% if student_code %}
+          <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Решение студента:</h5>
+                <p class="card-text" >
+                    <div >
+                  {{student_code|safe}}
+                  </div>
+                </p>
+              </div>
+            </div>
+          {% else %}
+          <div class="input-group" style="margin-bottom: 20px;">
+          <span class="input-group-text">Код:</span>
+          <textarea class="form-control" aria-label="With textarea" style="height: 230px;
+          resize: none;"></textarea>
+        </div>
+           {% endif %}
+           <div style="display: flex; flex-direction: row;
+        justify-content: space-between;">
+          <a href="#">Ваши решения</a>
+          <button type="button" class="btn btn-primary">Отправить решение</button>
+        </div>
+
+
+          {% endif %}
+
+
+<!--        <strong>Задание 3</strong>-->
+<!--        <div style="margin-bottom: 20px;">-->
+<!--          <p>-->
+<!--            Вычислить значение функции f(x, t) = ((1+x^2-2*x*t)/(1 + sqrt(1 + 3*(cos(x*t))^4))) +-->
+<!--            sqrt(x*t*sin(t))-->
+<!--          </p>-->
+<!--        </div>-->
+
+<!--        <div class="input-group" style="margin-bottom: 20px;">-->
+<!--          <span class="input-group-text">Код:</span>-->
+<!--          <textarea class="form-control" aria-label="With textarea" style="height: 230px;-->
+<!--          resize: none;"></textarea>-->
+<!--        </div>-->
+<!--        <div style="display: flex; flex-direction: row; -->
+<!--        justify-content: space-between;">-->
+<!--          <a href="#">Ваши решения</a>-->
+<!--          <button type="button" class="btn btn-primary">Отправить решение</button>-->
+<!--        </div>-->
+
+<!--        <div class="row comment">-->
+<!--          <div class="col-12">-->
+<!--            <div class="card shadow-sm">-->
+<!--              <div class="card-body">-->
+<!--                <h5 class="card-title">Комментарий преподавателя:</h5>-->
+<!--                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, culpa debitis! Unde perferendis vel sed praesentium sunt explicabo nostrum quidem, distinctio cum, iure reiciendis? Perspiciatis dolor veniam natus blanditiis quaerat? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum vel magnam enim cum reprehenderit sapiente hic id placeat, quibusdam fugiat vero nisi aut voluptas, sed assumenda facilis illum eius quasi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quos cumque nisi, praesentium reprehenderit accusantium deleniti soluta. Dicta, unde ipsam esse fuga, sunt, laboriosam culpa dolorum neque rem odio maiores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias incidunt ullam corrupti iure illum praesentium, voluptatum accusantium dicta molestias unde officia dolorum modi explicabo, tempora quis qui cupiditate! Maxime, placeat.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          -->
+<!--          </div>-->
+<!--          <div class="col-md-3">-->
+<!--            <div class="card shadow-sm">-->
+<!--              <div class="card-body">-->
+<!--                <h5 class="card-title">Оценка</h5>-->
+<!--                <p class="card-text">2,00/2,00</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{% static 'js/sidebar_menu.js' %}"></script>
+<script>
+window.addEventListener('load', function () {
+    setTimeout(function () {
+    var scrollPos = localStorage.getItem('scrollPos');
+    if (scrollPos) {
+        window.scrollTo({
+            top: scrollPos,
+            behavior: "instant"
+        });
+        localStorage.removeItem('scrollPos');
+    }
+}, 0);
+
+    var codeElements = document.querySelectorAll('.code');
+        // Переключаем атрибут contenteditable для каждого элемента
+        codeElements.forEach(function (element) {
+                element.setAttribute('contenteditable', 'true');
+        });
+});
+        window.onbeforeunload = function () {
+            localStorage.setItem('scrollPos', window.scrollY);
+        };
+
+ </script>
+</body>
+
+</html>

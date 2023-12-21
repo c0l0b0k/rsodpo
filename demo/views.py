@@ -7,8 +7,7 @@ from task.models import *
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
-from django_rq import enqueue, job,  get_queue
-import time, schedule
+from demo.tasks import *
 
 #
 
@@ -33,8 +32,9 @@ def demo(request):
         sr=StorageRequests.objects.create(is_done=False, rate=r,user=teacher)
 
 
-        queue = get_queue('default')
+
         # job = queue.enqueue(run_sent_neuro_task, sr.storage_id)
+        send_reqvest.delay(sr.storage_id)
     return render(request, 'blank.html', contex)
 @csrf_exempt
 def reqvests_list(request):
