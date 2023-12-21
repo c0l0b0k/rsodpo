@@ -24,7 +24,7 @@ from student.views import *
 from task.views import *
 from django.urls import include, path
 from teacher.views import *
-from demo.views import *
+from add_task_in_bank.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls,name='admin'),
@@ -43,6 +43,9 @@ urlpatterns = [
     path('add_request/',add_request, name= 'add_request/'),
     path('start_fon_task/',start_fon_task, name= 'start_fon_task/'),
 
+    path('test2/', test2,name='test2/'),
+    # path('test1/', test1,name='test1/'),
+
     # для student
     path('task_view', task_view, name='task_view'),
 
@@ -50,8 +53,8 @@ urlpatterns = [
     path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),
     path('lab_view/<int:solution_id>/', lab_view, name='lab_view'),
 
-    #demo
-    path('demo/',demo,name='demo'),
+    #add_task
+    path('add_task/', add_task, name='add_task'),
     path('reqvests_list/',reqvests_list,name='reqvests_list'),
     path('answer_view/<int:storage_id>/', answer_view, name='answer_view'),
 

@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
-from demo.forms import DemoForm
+from add_task_in_bank.forms import AddTaskForm
 
 from task.models import *
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
-from demo.tasks import *
+from add_task_in_bank.tasks import *
 
 #
 
 @csrf_exempt
-def demo(request):
-    form = DemoForm()
+def add_task(request):
+    form = AddTaskForm()
     contex = {
         'form': form
     }
@@ -22,10 +22,15 @@ def demo(request):
         print(request.POST)
         data=request.POST
         task=data["task"]
-        teacher = Teacher.objects.get(user=request.user)
+        key_words = preprocess_text(task)
+        mas1, mas2, mas3=сriteria_for_all_neural_net(key_words)
+        print("yyyy")
+        print(mas1, mas2, mas3)
+        neural_id=classify_arrays(mas1+ mas2+ mas3)
+        print(neural_id)
         # t=Task.objects.create(formulation=task,key_words=preprocess_text(task), topic=Topic.objects.get(pk=data['subsection']))
-        t = Task.objects.create(formulation=task,
-                                topic=Topic.objects.get(pk=data['topic']))
+
+
         print("=======")
         s = Solution.objects.create(program_code=data['solution'],mark=-4, task=t)
         r = Rate.objects.create(solution=s)
@@ -34,8 +39,8 @@ def demo(request):
 
 
         # job = queue.enqueue(run_sent_neuro_task, sr.storage_id)
-        send_reqvest.delay(sr.storage_id)
-    return render(request, 'blank.html', contex)
+        #send_reqvest.delay(sr.storage_id)
+    return render(request, 'addtask.html', contex)
 @csrf_exempt
 def reqvests_list(request):
     teacher = Teacher.objects.get(user=request.user)

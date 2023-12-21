@@ -1,4 +1,4 @@
-
+import csv
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -187,6 +187,87 @@ def add_request(request):
 def start_fon_task(request):
 
     run_repeating_task()
+    return HttpResponse("OK")
+
+@csrf_exempt
+def train_definition_of_evaluation_criteria(request):
+    #
+    a = ["", "", ""]#Мешки слов
+    b = [[], [], []]#Критерии оценок
+    c = train_vectorize_text(a)#Получение векторизированного текста
+    d = train_nlp_neural_net(c, b)#Обучение нейронной сети
+
+def definite_new_task(request):
+    a = "Новое задание"#Запрос на получение новго задания
+    b = preprocess_text(a)
+    c1, c2, c3 = сriteria_for_all_neural_net(b)
+
+# def test(request):
+# #     rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')
+# #
+# #     temp = [[r.kr1, r.kr2, r.kr3, r.kr4, r.kr5] for r in rates]
+# #     a = []
+# #     for i, r in enumerate(rates):
+# #         if i % 3 == 0:
+# #             a.append(r.solution.task.key_words)
+# #     b = []
+# #
+# #     for i in range(0, len(temp), 3):
+# #         combined_array = temp[i] + temp[i + 1] + temp[i + 2]
+# #         b.append(combined_array)
+# #     c = train_vectorize_text(a)  # Получение векторизированного текста
+# #     d = train_nlp_neural_net(c, b)  # Обучение нейронной сети
+# #
+# #     return HttpResponse("OK")
+
+# def test1(request):
+#     rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')
+#
+#     temp = [[r.kr1, r.kr2, r.kr3, r.kr4, r.kr5] for r in rates]
+#     y=[r.kr6 for r in rates]
+#     step = 3
+#     # Используйте цикл с шагом 3 для объединения подмассивов
+#     x = [temp[i:i + step] for i in range(0, len(temp), step)]
+#     x=np.array(x)
+#     y=np.array(y)
+#     x = np.repeat(x, 20)
+#     y = np.repeat(y, 20)
+#     y = y.reshape(-1)
+#     x = x.reshape(-1, 15)
+#
+#     mas = [0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001,0.00000001]
+#     for i in mas:
+#         print(train_main_neural_net(x, y, i))
+#     return HttpResponse("OK")
+
+def test2(request):
+    rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')
+
+    temp = [[r.kr1, r.kr2, r.kr3, r.kr4, r.kr5] for r in rates]
+    y=[r.kr6 for r in rates]
+    x = []
+
+    for i in range(0, len(temp), 3):
+        combined_array = temp[i] + temp[i + 1] + temp[i + 2]
+        x.append(combined_array)
+    print("x",x)
+    print("y",y)
+    output_file_path = "data.csv"
+    x_data=x
+    y_data=y
+    # Запись данных в CSV файл
+    with open(output_file_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+
+        # Записываем заголовок
+        header = ['feature_{}'.format(i) for i in range(1, len(x_data[0]) + 1)] + ['target']
+        writer.writerow(header)
+
+        # Записываем данные
+        for x_row, y_value in zip(x_data, y_data):
+            writer.writerow(x_row + [y_value])
+
+    print(f"Данные записаны в {output_file_path}")
     return HttpResponse("OK")
 
 class login_user(LoginView):

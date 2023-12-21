@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'markdown_deux',
     'pygments',
-    'demo',
+    'add_task_in_bank',
     'django_celery_beat',
     'django_celery_results',
 
@@ -70,7 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'student', 'templates'),os.path.join(BASE_DIR, 'teacher', 'templates')
-            ,os.path.join(BASE_DIR, 'demo', 'templates') ],
+            ,os.path.join(BASE_DIR, 'add_task_in_bank', 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,7 +147,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR,'teacher', 'static'),
     os.path.join(BASE_DIR,'student', 'static'),
-    os.path.join(BASE_DIR,'demo', 'static')
+    os.path.join(BASE_DIR,'add_task_in_bank', 'static')
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
