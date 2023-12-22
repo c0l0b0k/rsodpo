@@ -23,11 +23,17 @@ def add_task(request):
         data=request.POST
         task=data["task"]
         key_words = preprocess_text(task)
-        mas1, mas2, mas3=сriteria_for_all_neural_net(key_words)
-        print("yyyy")
-        print(mas1, mas2, mas3)
-        neural_id=classify_arrays(mas1+ mas2+ mas3)
-        print(neural_id)
+        print("fffffffff")
+        print(key_words)
+        print("fffffffff")
+        t=сriteria_for_all_neural_net(key_words)
+
+        #
+
+
+
+
+
         # t=Task.objects.create(formulation=task,key_words=preprocess_text(task), topic=Topic.objects.get(pk=data['subsection']))
 
 

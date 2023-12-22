@@ -203,22 +203,22 @@ def definite_new_task(request):
     c1, c2, c3 = сriteria_for_all_neural_net(b)
 
 # def test(request):
-# #     rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')
-# #
-# #     temp = [[r.kr1, r.kr2, r.kr3, r.kr4, r.kr5] for r in rates]
-# #     a = []
-# #     for i, r in enumerate(rates):
-# #         if i % 3 == 0:
-# #             a.append(r.solution.task.key_words)
-# #     b = []
-# #
-# #     for i in range(0, len(temp), 3):
-# #         combined_array = temp[i] + temp[i + 1] + temp[i + 2]
-# #         b.append(combined_array)
-# #     c = train_vectorize_text(a)  # Получение векторизированного текста
-# #     d = train_nlp_neural_net(c, b)  # Обучение нейронной сети
-# #
-# #     return HttpResponse("OK")
+#     rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')
+#
+#     temp = [[r.kr1, r.kr2, r.kr3, r.kr4, r.kr5] for r in rates]
+#     a = []
+#     for i, r in enumerate(rates):
+#         if i % 3 == 0:
+#             a.append(r.solution.task.key_words)
+#     b = []
+#
+#     for i in range(0, len(temp), 3):
+#         combined_array = temp[i] + temp[i + 1] + temp[i + 2]
+#         b.append(combined_array)
+#     c = train_vectorize_text(a)  # Получение векторизированного текста
+#     d = train_nlp_neural_net(c, b)  # Обучение нейронной сети
+#
+#     return HttpResponse("OK")
 
 # def test1(request):
 #     rates = Rate.objects.filter(kr1__isnull=False).order_by('rate_id')

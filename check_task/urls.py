@@ -43,8 +43,8 @@ urlpatterns = [
     path('add_request/',add_request, name= 'add_request/'),
     path('start_fon_task/',start_fon_task, name= 'start_fon_task/'),
 
-    path('test2/', test2,name='test2/'),
-    # path('test1/', test1,name='test1/'),
+    # path('test/', test,name='test/'),
+
 
     # для student
     path('task_view', task_view, name='task_view'),

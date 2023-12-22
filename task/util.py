@@ -238,17 +238,17 @@ def classify_arrays(data):
     ratings = np.array(data)
     ratings = ratings.reshape(3, 5)
     x = ratings
-    with open('../model_params.pkl', 'rb') as file:
+    with open('model_params.pkl', 'rb') as file:
         a = pickle.load(file)
     return a.predict(data)
 
 
 
 def сriteria_for_all_neural_net(task):
-    file_path1 = os.path.join(BASE_DIR, 'model.h5')
-    model = load_model(file_path1)
-    file_path2 = os.path.join(BASE_DIR, 'model1.h5')
-    model1 = load_model(file_path2)
+
+    model = load_model('model1.h5')
+
+    model1 = load_model('model.h5')
     vector = []
     for word in task.split():
         if word in model.wv:
@@ -279,17 +279,17 @@ def train_definition_of_evaluation_criteria(request):
 
 
 
-def сriteria_for_all_neural_net(task):
-    file_path = os.path.join(BASE_DIR, 'model1.h5')
-    model = load_model(file_path)
-    file_path= os.path.join(BASE_DIR, 'model.h5')
-    model1 = load_model("file_path")
-    vector = []
-    for word in task.split():
-        if word in model.wv:
-            vector.append(model.wv[word])
-    text_vector = np.mean(vector, axis=0)
-    prediction = model1.predict(text_vector)
-    predictions = np.round(prediction).astype(int)
-    mas1, mas2, mas3 = predictions[:5], predictions[5:10], predictions[10:]
-    return mas1, mas2, mas3
+# def сriteria_for_all_neural_net(task):
+#
+#     model = load_model( 'model.h5')
+#
+#     model1 = load_model( 'model.h5')
+#     vector = []
+#     for word in task.split():
+#         if word in model.wv:
+#             vector.append(model.wv[word])
+#     text_vector = np.mean(vector, axis=0)
+#     prediction = model1.predict(text_vector)
+#     predictions = np.round(prediction).astype(int)
+#     mas1, mas2, mas3 = predictions[:5], predictions[5:10], predictions[10:]
+#     return mas1, mas2, mas3
