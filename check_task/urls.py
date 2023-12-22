@@ -48,6 +48,7 @@ urlpatterns = [
 
     # для student
     path('task_view', task_view, name='task_view'),
+    path('solution_list/<int:task_id>/', solution_list, name='solution_list'),
 
     # для teacher
     path('pivot_table_teacher/',pivot_table_teacher,name='pivot_table_teacher'),

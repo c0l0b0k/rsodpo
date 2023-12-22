@@ -112,3 +112,12 @@ def task_view(request):
             'student_code': student_code,
         }
     return render(request,'labview_stud.html',context)
+
+def solution_list(request, task_id):
+    student = Student.objects.get(user=request.user)
+    task=Task.objects.get(pk=task_id)
+    solutions = Solution.objects.filter(task=task, student=student).order_by("data_send")
+    context={
+        'solutions':solutions
+    }
+    return render(request,'solutionstable.html',context)

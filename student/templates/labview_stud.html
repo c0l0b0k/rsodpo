@@ -45,7 +45,7 @@
     </header>
 
     <main class="main">
-      <div class="sidebar">
+      <div id="menu" class="sidebar">
         <ul class="list-unstyled ps-0" id="topicsList">
           {% for topic in topics %}
           <li class="mb-1">
@@ -121,7 +121,8 @@
            {% endif %}
            <div style="display: flex; flex-direction: row;
         justify-content: space-between;">
-          <a href="#">Ваши решения</a>
+                <a href="{% url 'solution_list' task_id=task.task_id %}">Ваши решения</a>
+
 
                {% if solution.mark == 0 or solution.mark == -2 or solution.mark == -3 %}
                <button onclick="againSolution()" type="button" class="btn btn-primary">Решить снова</button>
@@ -238,7 +239,21 @@ window.addEventListener('load', function () {
         window.onbeforeunload = function () {
             localStorage.setItem('scrollPos', window.scrollY);
         };
+document.addEventListener("DOMContentLoaded", function() {
+    // Получаем элемент с полосой прокрутки
+    var topicsList = document.getElementById('menu');
 
+    // Проверяем, была ли сохранена позиция прокрутки в localStorage
+    var scrollPosition = localStorage.getItem('topicsListScrollPosition');
+    if (scrollPosition) {
+        topicsList.scrollTop = parseInt(scrollPosition);
+    }
+
+    // Слушаем событие прокрутки и сохраняем позицию в localStorage
+    topicsList.addEventListener('scroll', function() {
+        localStorage.setItem('topicsListScrollPosition', topicsList.scrollTop);
+    });
+});
  </script>
 <script type="text/javascript">document.addEventListener("DOMContentLoaded",function(){var t=new ClipboardJS(".copy-button");t.on("success",function(t){t.clearSelection();var n=t.trigger;n.classList.add("copied"),setTimeout(function(){n.classList.remove("copied")},2e3)}),t.on("error",function(t){console.error("Ошибка копирования текста",t.action)})})</script>
 </body>

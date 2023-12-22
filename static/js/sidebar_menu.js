@@ -26,6 +26,7 @@ $(document).ready(function() {
             // Обновление значения скрытого поля
             $('#selected_topic').val(nodeId);
           $('#main_form').submit();
+         $('#filter_and_topic').submit();
         });
 
     });

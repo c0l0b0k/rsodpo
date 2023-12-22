@@ -1,0 +1,16 @@
+.header img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 70px;
+}
+
+.header h3 {
+    display: inline-block;
+    vertical-align: middle;
+}
+.header{
+    margin-bottom: 10px;
+}
+.form-outline {
+    text-align: left;
+  }

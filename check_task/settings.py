@@ -99,10 +99,10 @@ WSGI_APPLICATION = 'check_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rsodpo_solution',
+        'NAME': 'rso8',
         'USER': 'postgres',
         'PASSWORD': '0268',
-        'HOST': '26.98.110.227',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

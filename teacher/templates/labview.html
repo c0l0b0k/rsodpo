@@ -1,5 +1,6 @@
 {% load static %}
 {% load highlight_code %}
+{% load subsection_tag %}
 <!doctype html>
 <html lang="ru">
 
@@ -44,99 +45,14 @@
     </header>
 
     <main class="main container">
-      <div class="flex-shrink-0 bg-white"  style="width: 250px; overflow: hidden; overflow-y: auto; height: 760px; ">
-        <ul class="list-unstyled ps-0">
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-              Лабораторная работа 1
-            </button>
-            <div class="collapse show" id="home-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-              Лабораторная работа 2
-            </button>
-            <div class="collapse" id="dashboard-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-              Лабораторная работа 3
-            </button>
-            <div class="collapse" id="orders-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#e-collapse" aria-expanded="false">
-              Лабораторная работа 4
-            </button>
-            <div class="collapse" id="e-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#w-collapse" aria-expanded="false">
-              Лабораторная работа 5
-            </button>
-            <div class="collapse" id="w-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#q-collapse" aria-expanded="false">
-              Лабораторная работа 6
-            </button>
-            <div class="collapse" id="q-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#r-collapse" aria-expanded="false">
-              Лабораторная работа 7
-            </button>
-            <div class="collapse" id="r-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">Задание 1</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 2</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 3</a></li>
-                <li><a href="#" class="link-dark rounded">Задание 4</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
       <div class="container page-container">
+
+          <form method="post" id="main_form" action="">
+          <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
+          <input type="hidden" name="selected_topic" id="selected_topic" value="{{ form.selected_topic.value|default:'' }}">
+
+                </form>
+
         <strong>{{task.topic.topic_name}}</strong>
         <div style="margin-bottom: 20px;">
           <p>{{task.formulation |safe}}</p>
@@ -213,6 +129,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>
+  <script src="{% static 'js/sidebar_menu.js' %}"></script>
 <script src="{% static 'teacher/js/for_code_in_recomend.js' %}"></script>
   <script src="{% static 'teacher/js/submit_lab_view.js' %}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>

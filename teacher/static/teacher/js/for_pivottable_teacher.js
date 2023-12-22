@@ -70,3 +70,7 @@ $(document).ready(function() {
  studyGroupSelect.addEventListener('change', function() {
     $('#filter_and_topic').submit();
   });
+ var studyGroupSelect = document.getElementById('id_status_solution');
+ studyGroupSelect.addEventListener('change', function() {
+    $('#filter_and_topic').submit();
+  });

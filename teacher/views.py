@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonRespons
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
+from task.util import get_mark
 from teacher.forms import *
 
 from pygments import highlight
@@ -14,6 +15,7 @@ import markdown
 
 @csrf_exempt
 def pivot_table_teacher(request):
+
     topics = Topic.objects.filter(subsection=None).order_by('topic_id')
     take_cookie = request.GET.get('take_cookie', None)
     if request.method == 'GET' and take_cookie==None:
@@ -38,6 +40,9 @@ def pivot_table_teacher(request):
 
         form = PivotTableForm(request.POST)
         data=form.data
+
+        print("iiiii")
+        print(data)
         updated_data = QueryDict(mutable=True)
         updated_data.update(form.data)
         if (take_cookie):
@@ -107,9 +112,27 @@ def pivot_table_teacher(request):
             .values('task', 'student') \
             .annotate(max_date=Max('data_send'))
 
-        # Получить соответствующие объекты Solution
-        solutions = Solution.objects.filter(task__in=tasks, student__in=students,
+        if (take_cookie):
+            status_solution = request.session.get('status_solution')
+            updated_data["status_solution"] = status_solution
+        else:
+            status_solution = data["status_solution"]
+
+        if status_solution=="":
+            solutions = Solution.objects.filter(task__in=tasks, student__in=students,
                                             data_send__in=latest_dates.values('max_date'))
+        else:
+            status=get_mark(status_solution)
+            print("ffffff")
+            print(status)
+            if  status==1:
+                solutions = Solution.objects.filter(task__in=tasks, student__in=students,
+                                                data_send__in=latest_dates.values('max_date'),mark__gt=0)
+            else:
+                solutions = Solution.objects.filter(task__in=tasks, student__in=students,
+                                                    data_send__in=latest_dates.values('max_date'), mark=status)
+        if not (students.exists()):
+            return render(request, 'pivottable.html', context)
 
         form.data = updated_data
         context.update({'solutions': solutions,'form':form})
@@ -117,7 +140,7 @@ def pivot_table_teacher(request):
         request.session['selected_letter_name'] = selected_letter_name
         request.session['selected_letter_surname'] = selected_letter_surname
         request.session['study_group'] = group
-
+        request.session['status_solution'] = status_solution
         request.session['selected_topic'] = topic
 
         return render(request, 'pivottable.html', context)

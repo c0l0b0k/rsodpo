@@ -1,19 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<!doctype html>
+<html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login page</title>
+    <!-- Подключение CSS файла bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- Далее может идти подключение любого другого CSS файла сайта -->
+    <script src="{% static 'task/css/stylelogin.css' %}"></script>
 </head>
+
 <body>
-{% block content %}
-<h1>Авторизация</h1>
+    <div style="display: flex; flex-direction: column; 
+    justify-content: space-between; height: 100vh;">
+        <main>
+          <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-4">
+            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                    <div class="mb-md-4 mt-md-4">
+                        <div class="header">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p ><button type="submit">Войти</button></p>
-</form>
+                            <h3>CodeUniver.se</h3>
+                        </div>
 
-{% endblock %}
+                        <!-- Форма логина -->
+                        <form method="post" action="{% url 'login_user' %}">
+                            {% csrf_token %}
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label" for="typeEmailX">Email</label>
+                                <input type="email" required id="typeEmailX" name="username" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label" for="typePasswordX">Пароль</label>
+                                <input type="password" required id="typePasswordX" name="password" class="form-control form-control-lg" />
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-light btn px-5" style="width: 100%;" type="submit">Вход</button>
+                        </form>
+                        <!-- Конец формы логина -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </main>
+
+    <footer class="footer mt-auto py-3 bg-dark text-white-50 border-top" style="width: 100%; margin-top: 40px;">
+
+        <div class="container text-center">
+            <small>Developed by: Giyasov N.R., Kopyrin E.A., Sagadeev A.R., Shuruev A.V.</small>
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

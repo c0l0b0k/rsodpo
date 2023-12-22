@@ -1,16 +1,29 @@
-import base64
-import uuid
-from task.models import *
-import bleach
-import numpy as np
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-import re
-import os
-import requests
-from keras.models import load_model
-from check_task.settings import BASE_DIR
+# import base64
+# import uuid
+# from task.models import *
+# import bleach
+# import numpy as np
+# from django.core.files.storage import default_storage
+# from django.core.files.base import ContentFile
+# import re
+# import os
+# import requests
+# from keras.models import load_model
+# from check_task.settings import BASE_DIR
 
+
+def get_mark(number):
+    number=int(number)
+    print("rrrrrr")
+    print(number)
+    if number ==2:
+        return 0
+    elif number ==3:
+        return -3
+    elif number==4:
+        return -2
+    else:
+        return 1
 
 
 def download_and_save_image(url):
@@ -59,26 +72,26 @@ def get_clean_text(html_content):
     return html_content
 
 
-import re
-from pymystem3 import Mystem
-from string import punctuation
-import nltk
-from nltk.corpus import stopwords
-from gensim.models import Word2Vec
-import random
-import numpy as np
-import tensorflow as tf
-from keras.layers import Dense, Conv1D, GlobalMaxPooling1D, Input
-from keras.models import Model
-from keras.models import Sequential
-from keras.layers import LSTM, Dense
-#
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-mystem = Mystem()
-russian_stopwords = stopwords.words("russian")
-import pickle
+# import re
+# from pymystem3 import Mystem
+# from string import punctuation
+# import nltk
+# from nltk.corpus import stopwords
+# from gensim.models import Word2Vec
+# import random
+# import numpy as np
+# import tensorflow as tf
+# from keras.layers import Dense, Conv1D, GlobalMaxPooling1D, Input
+# from keras.models import Model
+# from keras.models import Sequential
+# from keras.layers import LSTM, Dense
+# #
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('wordnet')
+# mystem = Mystem()
+# russian_stopwords = stopwords.words("russian")
+# import pickle
 
 
 

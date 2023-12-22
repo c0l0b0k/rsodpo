@@ -4,52 +4,55 @@
 <html lang="ru">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pivot table page</title>
-  <!-- Подключение CSS файла bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pivot table page</title>
+    <!-- Подключение CSS файла bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!-- Далее может идти подключение любого другого CSS файла сайта -->
-  <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/stylelabview.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/temp_pivottable.css' %}">
+    <!-- Далее может идти подключение любого другого CSS файла сайта -->
+    <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/stylelabview.css' %}">
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/temp_pivottable.css' %}">-->
 </head>
 
 <body>
-  <div style="display: flex; flex-direction: column; 
-    justify-content: space-between;">
-    <header style="width: 100%; position: fixed; z-index: 1;">
-      <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
-        <div style="margin-left: 5px;">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <img src="logo.png">
-            <strong>CodeUniver.se</strong>
-          </a>
-        </div>
+    <div style="display: flex; flex-direction: column; 
+    justify-content: space-between; height: 100vh;">
+        <header style="margin-bottom: 40px">
+            <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
+                <div class="container">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+<!--                        src="logo.png" -->
+                        <img width="40" height="40">
+                        <strong>CodeUniver.se</strong>
+                    </a>
 
-        <div class="dropdown" style="margin-right: 5px;">
-          <button class="btn btn-dark nav-item nav-link px-2 text-white" type="button" data-bs-toggle="dropdown"
-            aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-           {{ user}}
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
-          </ul>
-        </div>
-      </div>
+                    <div class="dropdown">
+                        <button class="btn btn-dark nav-item nav-link px-2 text-white" type="button"
+                            data-bs-toggle="dropdown" aria-controls="navbarHeader" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            {{ user}}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"href="{% url 'logout' %}">Выйти</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    </header>
+        <main class="main">
+            <div class="flex-shrink-0 p-3 bg-white" style="width: 250px;">
 
-    <main class="main">
-      <div id="menu" class="sidebar">
-        <ul class="list-unstyled ps-0" id="topicsList">
-          {% for topic in topics %}
-          <li class="mb-1">
-             {% if topic.topic_id in collapsed_nodes %}
-            <button class="btn btn-toggle align-items-center rounded " data-bs-toggle="collapse"
+    <ul class="list-unstyled ps-0" id="topicsList">
+        {% for topic in topics %}
+            <li class="mb-1">
+                 {% if topic.topic_id in collapsed_nodes %}
+                <button class="btn btn-toggle align-items-center rounded " data-bs-toggle="collapse"
                         data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="true">
                     {{topic.topic_name}}
-            </button>
-            <div class="collapse show" id="dashboard-collapse{{topic.topic_id}}">
+                </button>
+                <div class="collapse show" id="dashboard-collapse{{topic.topic_id}}">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         {% subsections topic as subsections %}
                         {% for subsection in subsections  %}
@@ -58,8 +61,7 @@
                     </ul>
                 </div>
                 {% else %}
-
-         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                         data-bs-target="#dashboard-collapse{{topic.topic_id}}" aria-expanded="false">
                     {{topic.topic_name}}
                 </button>
@@ -74,11 +76,12 @@
                 {% endif %}
             </li>
         {% endfor %}
-        </ul>
-      </div>
+    </ul>
+            </div>
 
-      <div class="container page-container">
-         <form method="post" id="filter_and_topic" action="{% url 'pivot_table_teacher' %}">
+
+            <div class="container" style="padding: 16px;">
+                <form method="post" id="filter_and_topic" action="{% url 'pivot_table_teacher' %}">
                         <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
                         <input type="hidden" name="selected_topic" id="selected_topic" value="{{ form.selected_topic.value|default:'' }}">
                 <h2>Ответы на задание</h2>
@@ -118,9 +121,7 @@
                 </div>
 
                 </form>
-
-
-        <table class="table table-sm">
+                <table class="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">№</th>
@@ -147,42 +148,44 @@
                               </th>
                               <th>{{solution.data_send}}</th>
                               <th>
-
-                                {% if solution.mark < 0 %}
-                  <p class="card-text">0/{{task.max_mark|default:""}}</p>
-                    {% else %}
-                <p class="card-text">{{ solution.mark|default:0}}/{{task.max_mark|default:""}}</p>
-                  {% endif %}
-
-
-                              </th>
-                            <th>
-                               {% if solution.mark == -3 %}
-                                  Ожидает проверки
-                               {% elif solution.mark == -2 %}
-                                  ответ не пришёл
-                               {% elif solution.mark == 0 %}
-                                  возвращено
-                               {% elif solution.mark > 0 %}
-                                  оценено
-                              {% endif %}
+                               {% if solution.task.max_mark %}
+                                  {{ solution.mark|default:0 }}/{{ solution.task.max_mark }}
+                               {% else %}
+                                  {{ solution.mark|default:0 }}
+                               {% endif %}
                               </th>
                           </tr>
                          {% endfor %}
 
-
+<!--                        <tr>-->
+<!--                            <th scope="row">1</th>-->
+<!--                            <td>Эрастов Эраст Эрастович</td>-->
+<!--                            <td>stud0000111111@study.utmn.ru</td>-->
+<!--                            <td><button type="button" class="btn btn-primary">-->
+<!--                                    Просмотр-->
+<!--                                </button></td>-->
+<!--                            <td>21.11.2023</td>-->
+<!--                            <td>1,00/2,00</td>-->
+<!--                            <td>Оценено</td>-->
+<!--                        </tr>-->
                     </tbody>
                 </table>
-      </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
 
-  </main>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"></script>
+    </main>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'teacher/js/for_pivottable_teacher.js' %}"></script>
-<script src="{% static 'js/sidebar_menu.js' %}"></script>
 <script>
 window.addEventListener('load', function () {
     setTimeout(function () {
@@ -195,31 +198,11 @@ window.addEventListener('load', function () {
         localStorage.removeItem('scrollPos');
     }
 }, 0);
-
-//    var codeElements = document.querySelectorAll('.code');
-//        // Переключаем атрибут contenteditable для каждого элемента
-//        codeElements.forEach(function (element) {
-//                element.setAttribute('contenteditable', 'true');
-//        });
 });
         window.onbeforeunload = function () {
             localStorage.setItem('scrollPos', window.scrollY);
         };
-document.addEventListener("DOMContentLoaded", function() {
-    // Получаем элемент с полосой прокрутки
-    var topicsList = document.getElementById('menu');
 
-    // Проверяем, была ли сохранена позиция прокрутки в localStorage
-    var scrollPosition = localStorage.getItem('topicsListScrollPosition');
-    if (scrollPosition) {
-        topicsList.scrollTop = parseInt(scrollPosition);
-    }
-
-    // Слушаем событие прокрутки и сохраняем позицию в localStorage
-    topicsList.addEventListener('scroll', function() {
-        localStorage.setItem('topicsListScrollPosition', topicsList.scrollTop);
-    });
-});
  </script>
 </body>
 
