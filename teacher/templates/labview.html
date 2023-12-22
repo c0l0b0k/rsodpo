@@ -18,6 +18,7 @@
   <!-- Далее может идти подключение любого другого CSS файла сайта -->
    <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/stylelabview.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/style_fix.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'teacher/css/fix_lad_teacher.css' %}">
 </head>
 
 <body>
@@ -45,7 +46,7 @@
     </header>
 
     <main class="main container">
-      <div class="container page-container">
+      <div id="fix_lad_teacher" class="container page-container">
 
           <form method="post" id="main_form" action="">
           <input type="hidden" name="collapsed_nodes" id="collapsedNodesInput" value="{{ form.collapsed_nodes.value|default:'' }}">
