@@ -8,9 +8,11 @@
     <title>Solutions table page</title>
     <!-- Подключение CSS файла bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        crossorigin="anonymous">
     <!-- Далее может идти подключение любого другого CSS файла сайта -->
     <link rel="stylesheet" type="text/css" href="{% static 'student/css/stylesolutionstable.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/hystmodal.min.css' %}">
 </head>
 
 <body>
@@ -20,7 +22,7 @@
             <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-between">
                 <div class="container">
                     <a href="#" class="navbar-brand d-flex align-items-center">
-                        <img src="logo.png" width="40" height="40">
+                       <img src="{% static 'img/logo.png' %}" width="40" height="40">
                         <strong>CodeUniver.se</strong>
                     </a>
 
@@ -28,10 +30,10 @@
                         <button class="btn btn-dark nav-item nav-link px-2 text-white" type="button"
                             data-bs-toggle="dropdown" aria-controls="navbarHeader" aria-expanded="false"
                             aria-label="Toggle navigation">
-                            Иванов И.И.
+                             {{ user}}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Выйти</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,7 +54,7 @@
                     {% for solution in solutions %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td><button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#solutionModal">
+                            <td><button type="button" class="btn btn-link" data-bs-toggle="modal" data-hystmodal="#myModal" onclick="myFunction({{solution.solution_id}})">
                                     {{solution.solution_id}}
                             </button></td>
                             <td>{{solution.data_send}}</td>
@@ -71,29 +73,15 @@
                 <a href="#" onclick="history.back();">Вернуться на главную</a>
             </div>
 
-            <div class="modal fade" id="solutionModal" tabindex="-1" aria-labelledby="solutionModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="solutionModalLabel">Решения</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Закрыть"></button>
-                        </div>
-                        <div style="display: inline-flex; justify-content: space-between; margin: 12px;">
-                            <button type="button" class="btn btn-outline-primary">Предыдущее</button>
-                            <button type="button" class="btn btn-outline-primary">Следующее</button>
-                        </div>
-                        <div class="modal-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut iusto aspernatur velit, minus temporibus est, officiis exercitationem repellat nulla cum repellendus distinctio fuga amet rerum magnam. Expedita unde eos aliquid.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Закрыть</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+<div class="hystmodal" id="myModal" aria-hidden="true">
+    <div class="hystmodal__wrap">
+        <div class="hystmodal__window" role="dialog" aria-modal="true">
+            <button data-hystclose class="hystmodal__close">Закрыть</button>
+            <textarea id="program_code" style="width:100%; min-height:300px;"></textarea>
+        </div>
+    </div>
+</div>
         </main>
         <footer class="footer mt-auto py-3 bg-dark text-white-50 border-top" style="width: 100%; margin-top: 40px;">
 
@@ -102,9 +90,19 @@
             </div>
         </footer>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/hystmodal.min.js' %}"></script>
+<script src="{% static 'student/js/for_get_code.js' %}"></script>
+<script>
+    const myModal = new HystModal({
+    linkAttributeName: "data-hystmodal",
+    // настройки (не обязательно), см. API
+});
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 from collections import defaultdict
 from itertools import groupby
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.utils import timezone
 from django.db.models import Max
 from django.shortcuts import render, get_object_or_404
@@ -112,7 +116,7 @@ def task_view(request):
             'student_code': student_code,
         }
     return render(request,'labview_stud.html',context)
-
+@csrf_exempt
 def solution_list(request, task_id):
     student = Student.objects.get(user=request.user)
     task=Task.objects.get(pk=task_id)
@@ -121,3 +125,8 @@ def solution_list(request, task_id):
         'solutions':solutions
     }
     return render(request,'solutionstable.html',context)
+@csrf_exempt
+def get_solution_code(request, solution_id):
+        solution = get_object_or_404(Solution, solution_id=solution_id)
+        program_code = solution.program_code
+        return JsonResponse({'program_code': program_code})
